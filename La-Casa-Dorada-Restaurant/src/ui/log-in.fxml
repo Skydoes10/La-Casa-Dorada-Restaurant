@@ -11,7 +11,7 @@
 <?import javafx.scene.text.Font?>
 
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane fx:id="mainPanel" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="LaCasaDoradaGUI">
    <center>
       <GridPane BorderPane.alignment="CENTER">
         <columnConstraints>
@@ -26,12 +26,12 @@
             <RowConstraints maxHeight="172.0" minHeight="10.0" prefHeight="154.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <TextField GridPane.columnIndex="1" GridPane.rowIndex="1">
+            <TextField fx:id="txtUsername" GridPane.columnIndex="1" GridPane.rowIndex="1">
                <GridPane.margin>
                   <Insets right="30.0" />
                </GridPane.margin>
             </TextField>
-            <TextField GridPane.columnIndex="1" GridPane.rowIndex="2">
+            <TextField fx:id="txtPassword" GridPane.columnIndex="1" GridPane.rowIndex="2">
                <GridPane.margin>
                   <Insets right="30.0" />
                </GridPane.margin>
@@ -60,7 +60,7 @@
                   <Insets left="20.0" />
                </GridPane.margin>
             </Label>
-            <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="88.0" text="Log in" GridPane.columnIndex="1" GridPane.rowIndex="3">
+            <Button fx:id="btnLogIn" mnemonicParsing="false" prefHeight="30.0" prefWidth="88.0" text="Log in" GridPane.columnIndex="1" GridPane.rowIndex="3">
                <font>
                   <Font size="13.0" />
                </font>
@@ -68,7 +68,7 @@
                   <Insets bottom="60.0" left="50.0" />
                </GridPane.margin>
             </Button>
-            <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="88.0" text="Register" GridPane.columnIndex="1" GridPane.rowIndex="3">
+            <Button fx:id="btnSignUp" mnemonicParsing="false" prefHeight="30.0" prefWidth="88.0" text="Sign Up" GridPane.columnIndex="1" GridPane.rowIndex="3">
                <GridPane.margin>
                   <Insets left="50.0" top="50.0" />
                </GridPane.margin>
