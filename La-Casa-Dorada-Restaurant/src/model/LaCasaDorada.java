@@ -33,4 +33,32 @@ public class LaCasaDorada {
 		pType.add(pt);		
 		return message;
 	}
+	
+	public String RemoveProduct(String name) {
+		String message = "";
+		if (products.contains(name)) {
+			products.remove(products.indexOf(name));
+			message = "Product removed";
+		}
+		return message;
+	}
+	
+	public String RemoveIngredient(String name) {
+		String message = "";
+		if (ingredients.contains(name)) {
+			ingredients.remove(ingredients.indexOf(name));
+			message = "Ingredient removed";
+		}
+		return message;
+	}
+	
+	public String RemoveProductType(String name) {
+		String message = "";
+		if (pType.contains(name)) {
+			pType.remove(pType.indexOf(name));
+			message = "Type of product removed";
+		}
+		return message;
+	}
+	
 }

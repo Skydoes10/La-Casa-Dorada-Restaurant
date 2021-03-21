@@ -24,7 +24,9 @@ public class LaCasaDoradaGUI {
     private Button btnSignUp;
     
     
-    
+    public void initialize() {
+    	
+    }
 
 }
 
