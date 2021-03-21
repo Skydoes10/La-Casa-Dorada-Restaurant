@@ -1,45 +1,35 @@
 package model;
 
 import java.util.ArrayList;
-import java.util.List;
 
-public class Product {
+public class Product extends Object{
 	
-	private String name;
-	private String type;
-	private List<Ingredient> ingredients;
+	private ProductType type;
+	private ArrayList<Ingredient> ingredients;
 	private String size;
-	private double price;
+	private int price;
 	
-	public Product(String n, String t, String s, double p) {
-		name = n;
-		type = t;
-		ingredients = new ArrayList<>();
-		size = s;
-		price = p;
+	public Product(String name, ProductType type, ArrayList<Ingredient> ingredients, String size, int price) {
+		super(name);
+		this.type = type;
+		this.ingredients = ingredients;
+		this.size = size;
+		this.price = price;
 	}
 
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public String getType() {
+	public ProductType getType() {
 		return type;
 	}
 
-	public void setType(String type) {
+	public void setType(ProductType type) {
 		this.type = type;
 	}
 
-	public List<Ingredient> getIngredients() {
+	public ArrayList<Ingredient> getIngredients() {
 		return ingredients;
 	}
 
-	public void setIngredients(List<Ingredient> ingredients) {
+	public void setIngredients(ArrayList<Ingredient> ingredients) {
 		this.ingredients = ingredients;
 	}
 
@@ -51,11 +41,11 @@ public class Product {
 		this.size = size;
 	}
 
-	public double getPrice() {
+	public int getPrice() {
 		return price;
 	}
 
-	public void setPrice(double price) {
+	public void setPrice(int price) {
 		this.price = price;
 	}
 	

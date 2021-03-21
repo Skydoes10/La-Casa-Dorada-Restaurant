@@ -1,8 +1,8 @@
 package model;
 
-public class Ingredient extends Object{
+public class ProductType extends Object{
 
-	public Ingredient(String name) {
+	public ProductType(String name) {
 		super(name);
 		// TODO Auto-generated constructor stub
 	}
