@@ -5,13 +5,16 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import model.LaCasaDorada;
 
 public class Main extends Application{
 	
 	private LaCasaDoradaGUI laCDGUI;
+	private LaCasaDorada laCD;
 
 	public Main() {
-		laCDGUI = new LaCasaDoradaGUI();
+		laCD = new LaCasaDorada();
+		laCDGUI = new LaCasaDoradaGUI(laCD);
 	}
 
 	public static void main(String[] args) {
@@ -19,8 +22,8 @@ public class Main extends Application{
 	}
 
 	@Override
-	public void start(Stage primaryStage) throws Exception {
-		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("log-in.fxml"));
+	public void start(Stage primaryStage) throws Exception{
+		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("login.fxml"));
 		fxmlLoader.setController(laCDGUI);
 		Parent root = fxmlLoader.load();		
 		

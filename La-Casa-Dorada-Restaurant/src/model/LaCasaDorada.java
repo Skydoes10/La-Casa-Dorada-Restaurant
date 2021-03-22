@@ -7,10 +7,17 @@ public class LaCasaDorada {
 	private ArrayList<Product> products;
 	private ArrayList<Ingredient> ingredients;
 	private ArrayList<ProductType> pType;
+	private ArrayList<User> users;
 
 	
 	public LaCasaDorada() {
 		products = new ArrayList<Product>();
+		users = new ArrayList<User>();
+	}
+	
+	public void addUser(String name, String lastname, String id, String username, String password) {
+		User user = new User(name, lastname, id, username, password);
+		users.add(user);
 	}
 	
 	public String addProduct(String name, ProductType type, String size, int price) {
@@ -59,6 +66,10 @@ public class LaCasaDorada {
 			message = "Type of product removed";
 		}
 		return message;
+	}
+
+	public ArrayList<User> getUsers() {
+		return users;
 	}
 	
 }

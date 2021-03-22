@@ -4,9 +4,9 @@ public class Employee {
 	
 	private String name;
 	private String lastName;
-	private int id;
+	private String id;
 	
-	public Employee(String n, String ln, int id) {
+	public Employee(String n, String ln, String id) {
 		name = n;
 		lastName = ln;
 		this.id = id;
@@ -28,11 +28,11 @@ public class Employee {
 		this.lastName = lastName;
 	}
 
-	public int getId() {
+	public String getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 	
