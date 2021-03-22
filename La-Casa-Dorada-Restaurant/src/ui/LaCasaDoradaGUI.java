@@ -9,10 +9,11 @@ import javafx.scene.Parent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.VBox;
 import model.LaCasaDorada;
 
 public class LaCasaDoradaGUI {
@@ -60,7 +61,31 @@ public class LaCasaDoradaGUI {
     
     //Menu
     @FXML
-    private VBox menuPane;
+    private BorderPane menuPane;
+
+    @FXML
+    private Button btnOrder;
+
+    @FXML
+    private Button btnProducts;
+
+    @FXML
+    private Button btnIngredients;
+
+    @FXML
+    private Button btnClients;
+
+    @FXML
+    private Button btnEmployees;
+
+    @FXML
+    private Button btnUsers;
+    
+    @FXML
+    private Button btnAdd;
+
+    @FXML
+    private TableView<?> tvList;
     
     private LaCasaDorada LaCD;
 
@@ -80,10 +105,10 @@ public class LaCasaDoradaGUI {
 	    		if(LaCD.getUsers().get(i).getUsername().equals(txtUsername.getText()) && (LaCD.getUsers().get(i).getPassword().equals(txtPassword.getText()))) {
 	    			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("menu.fxml"));
 	            	fxmlLoader.setController(this);
-	            	Parent addMenuPane = fxmlLoader.load();
+	            	Parent menuPane = fxmlLoader.load();
 	            	
 	            	mainPanel.getChildren().clear();
-	            	mainPanel.setTop(addMenuPane);
+	            	mainPanel.setTop(menuPane);
 	    		}else {
 	        		Alert alert = new Alert(AlertType.ERROR);
 	    			alert.setTitle("Inicio de sesion denegado");
@@ -152,13 +177,16 @@ public class LaCasaDoradaGUI {
     	registerPane.setTop(LogInPane);
     }
     
+    //Menu Methods
     @FXML
-    public void loadOrderList(ActionEvent event) {
-    	FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("List.fxml"));
-    	fxmlLoader.setController(this);
-    	Parent orderListPane = fxmlLoader.load();
+    public void loadUsersList(ActionEvent event) {
     	
-    	menuPane.getChildren().clear();
-    	menuPane.setTop(orderListPane);
     }
+    
+    
+    
+    
+    
+    
+    
 }
