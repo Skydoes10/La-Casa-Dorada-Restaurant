@@ -17,6 +17,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
+import model.Ingredient;
 import model.LaCasaDorada;
 import model.User;
 
@@ -110,8 +111,15 @@ public class LaCasaDoradaGUI {
     @FXML
     private Button btnAddUser;
 
-    
+    //IngredientList
+    @FXML
+    private TableView<Ingredient> tvIngredientList;
 
+    @FXML
+    private TableColumn<Ingredient, String> tcName1;
+
+    @FXML
+    private Button btnAddIngredient;
     
     
     
@@ -210,7 +218,27 @@ public class LaCasaDoradaGUI {
     
     //Menu Methods
     @FXML
-    void loadUsersList(ActionEvent event) throws IOException {
+    public void loadIngredientsList(ActionEvent event) throws IOException {
+    	FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("ingredientList.fxml"));
+    	fxmlLoader.setController(this);
+    	Parent listPane = fxmlLoader.load();
+    	
+    	menuListPane.setCenter(listPane);
+    	initializeIngredientTableView();
+    }
+    
+    public void initializeIngredientTableView() {
+    	ObservableList<Ingredient> observableList;
+    	observableList = FXCollections.observableArrayList(LaCD.getIngredients());
+    	
+    	tvIngredientList.setItems(observableList);
+		tcName1.setCellValueFactory(new PropertyValueFactory<Ingredient,String>("name"));
+		
+		tvUserList.setEditable(true);
+    }
+    
+    @FXML
+    public void loadUsersList(ActionEvent event) throws IOException {
     	FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("userList.fxml"));
     	fxmlLoader.setController(this);
     	Parent listPane = fxmlLoader.load();
@@ -219,7 +247,7 @@ public class LaCasaDoradaGUI {
     	initializeUserTableView();
     }
     
-    private void initializeUserTableView() {
+    public void initializeUserTableView() {
     	ObservableList<User> observableList;
     	observableList = FXCollections.observableArrayList(LaCD.getUsers());
     	
@@ -233,8 +261,20 @@ public class LaCasaDoradaGUI {
 		tvUserList.setEditable(true);
     }
     
+    //userList Methods
     @FXML
-    void addOtherUser(ActionEvent event) throws IOException {
+    public void addOtherUser(ActionEvent event) throws IOException {
     	loadRegister(event);
     }
+    
+    @FXML
+    public void addNewIngredient(ActionEvent event) {
+
+    }
+    
+    //ingredientList Methods
+    
+    
+    
+    
 }

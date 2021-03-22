@@ -12,6 +12,7 @@ public class LaCasaDorada {
 	
 	public LaCasaDorada() {
 		products = new ArrayList<Product>();
+		ingredients = new ArrayList<Ingredient>();
 		users = new ArrayList<User>();
 	}
 	
@@ -70,6 +71,14 @@ public class LaCasaDorada {
 
 	public ArrayList<User> getUsers() {
 		return users;
+	}
+
+	public ArrayList<Product> getProducts() {
+		return products;
+	}
+
+	public ArrayList<Ingredient> getIngredients() {
+		return ingredients;
 	}
 	
 }
