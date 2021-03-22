@@ -12,6 +12,7 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.VBox;
 import model.LaCasaDorada;
 
 public class LaCasaDoradaGUI {
@@ -34,6 +35,9 @@ public class LaCasaDoradaGUI {
     
     //Register
     @FXML
+    private BorderPane registerPane;
+    
+    @FXML
     private TextField txtName;
 
     @FXML
@@ -54,6 +58,10 @@ public class LaCasaDoradaGUI {
     @FXML
     private Button btnBack;
     
+    //Menu
+    @FXML
+    private VBox menuPane;
+    
     private LaCasaDorada LaCD;
 
     public LaCasaDoradaGUI(LaCasaDorada CD) {
@@ -62,7 +70,7 @@ public class LaCasaDoradaGUI {
 
 	public void initialize() {
     	
-    }
+	}
 	
 	//LogIn Methods    
     @FXML
@@ -78,16 +86,16 @@ public class LaCasaDoradaGUI {
 	            	mainPanel.setTop(addMenuPane);
 	    		}else {
 	        		Alert alert = new Alert(AlertType.ERROR);
-	    			alert.setTitle("Log-in incorrect");
-	    			alert.setHeaderText("The username or password given are incorrect");
+	    			alert.setTitle("Inicio de sesion denegado");
+	    			alert.setHeaderText("El usuario y/o la contraseña son incorrectos");
 	    			alert.setContentText(null);
 	    			alert.showAndWait();
 	    		}
     		}
     	}else {
     		Alert alert = new Alert(AlertType.ERROR);
-			alert.setTitle("Log-in incorrect");
-			alert.setHeaderText("The username or password given are incorrect");
+			alert.setTitle("Inicio de sesion denegado");
+			alert.setHeaderText("El usuario y/o la contraseña son incorrectos");
 			alert.setContentText(null);
 			alert.showAndWait();
     	}
@@ -97,10 +105,10 @@ public class LaCasaDoradaGUI {
     public void loadRegister(ActionEvent event) throws IOException {
     	FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("register.fxml"));
     	fxmlLoader.setController(this);
-    	Parent addRegisterPane = fxmlLoader.load();
+    	Parent RegisterPane = fxmlLoader.load();
     	
     	mainPanel.getChildren().clear();
-    	mainPanel.setTop(addRegisterPane);
+    	mainPanel.setTop(RegisterPane);
     }
     
     //Register Methods
@@ -110,23 +118,23 @@ public class LaCasaDoradaGUI {
     		if(txtName.getText().isEmpty() || txtLastName.getText().isEmpty() || txtID.getText().isEmpty() || txtUsername2.getText().isEmpty() || txtPassword2.getText().isEmpty()) {
     			Alert alert = new Alert(AlertType.ERROR);
     			alert.setTitle("Error");
-    			alert.setHeaderText("Please fill in all fields");
+    			alert.setHeaderText("Por favor llene todos los campos");
     			alert.setContentText(null);
     			alert.showAndWait();
     		}else {
     			LaCD.addUser(txtName.getText(), txtLastName.getText(), txtID.getText(), txtUsername2.getText(), txtPassword2.getText());
                	Alert alert = new Alert(AlertType.INFORMATION);
-        		alert.setTitle("Account created");
+        		alert.setTitle("Cuenta creada");
         		alert.setHeaderText(null);
-        		alert.setContentText("The new account has been created");
+        		alert.setContentText("Cuenta creada exitosamente");
         		alert.showAndWait();
     		}
     	}else {
     		for(int i=0; i<LaCD.getUsers().size(); i++) {
     			if(LaCD.getUsers().get(i).getId().equals(txtID.getText())) {
     				Alert alert = new Alert(AlertType.ERROR);
-	    			alert.setTitle("User already exists");
-	    			alert.setHeaderText("An user with this ID already exists");
+	    			alert.setTitle("El usuario ya existe");
+	    			alert.setHeaderText("Ya existe un usuario con el mismo ID");
 	    			alert.setContentText(null);
 	    			alert.showAndWait();
     			}
@@ -135,15 +143,22 @@ public class LaCasaDoradaGUI {
     }
     
     @FXML
-    void loadLogIn(ActionEvent event) throws IOException {
+    public void loadLogIn(ActionEvent event) throws IOException {
     	FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("login.fxml"));
     	fxmlLoader.setController(this);
-    	Parent addLogInPane = fxmlLoader.load();
+    	Parent LogInPane = fxmlLoader.load();
     	
-    	mainPanel.getChildren().clear();
-    	mainPanel.setTop(addLogInPane);
+    	registerPane.getChildren().clear();
+    	registerPane.setTop(LogInPane);
     }
     
-    
+    @FXML
+    public void loadOrderList(ActionEvent event) {
+    	FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("List.fxml"));
+    	fxmlLoader.setController(this);
+    	Parent orderListPane = fxmlLoader.load();
+    	
+    	menuPane.getChildren().clear();
+    	menuPane.setTop(orderListPane);
+    }
 }
-
