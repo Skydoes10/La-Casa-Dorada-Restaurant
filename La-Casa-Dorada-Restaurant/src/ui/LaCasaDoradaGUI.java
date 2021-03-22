@@ -2,6 +2,8 @@ package ui;
 
 import java.io.IOException;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -9,12 +11,14 @@ import javafx.scene.Parent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
+import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
-import javafx.scene.layout.AnchorPane;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
 import model.LaCasaDorada;
+import model.User;
 
 public class LaCasaDoradaGUI {
 
@@ -85,7 +89,22 @@ public class LaCasaDoradaGUI {
     private Button btnAdd;
 
     @FXML
-    private TableView<?> tvList;
+    private TableView<User> tvList;
+    
+    @FXML
+    private TableColumn<User, String> tcName;
+
+    @FXML
+    private TableColumn<User, String> tcLastname;
+
+    @FXML
+    private TableColumn<User, String> tcID;
+
+    @FXML
+    private TableColumn<User, String> tcUsername;
+
+    @FXML
+    private TableColumn<User, String> tcPassword;
     
     private LaCasaDorada LaCD;
 
@@ -180,10 +199,16 @@ public class LaCasaDoradaGUI {
     //Menu Methods
     @FXML
     public void loadUsersList(ActionEvent event) {
+    	ObservableList<User> observableList;
+    	observableList = FXCollections.observableArrayList(LaCD.getUsers());
     	
+		tvList.setItems(observableList);
+		tcName.setCellValueFactory(new PropertyValueFactory<User,String>("name"));
+		tcLastname.setCellValueFactory(new PropertyValueFactory<User,String>("lastName"));
+		tcID.setCellValueFactory(new PropertyValueFactory<User,String>("id"));
+		tcUsername.setCellValueFactory(new PropertyValueFactory<User,String>("username"));
+		tcPassword.setCellValueFactory(new PropertyValueFactory<User,String>("password"));
     }
-    
-    
     
     
     

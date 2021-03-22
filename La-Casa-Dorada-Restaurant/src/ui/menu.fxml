@@ -38,8 +38,11 @@
    <center>
       <TableView fx:id="tvList" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
         <columns>
-          <TableColumn prefWidth="75.0" text="Nombre" />
-          <TableColumn prefWidth="75.0" text="C2" />
+          <TableColumn fx:id="tcName" prefWidth="75.0" text="Nombre" />
+          <TableColumn fx:id="tcLastname" prefWidth="75.0" text="Apellidos" />
+            <TableColumn fx:id="tcID" prefWidth="75.0" text="ID" />
+            <TableColumn fx:id="tcUsername" prefWidth="75.0" text="Usuario" />
+            <TableColumn fx:id="tcPassword" prefWidth="75.0" text="Contraseña" />
         </columns>
       </TableView>
    </center>
