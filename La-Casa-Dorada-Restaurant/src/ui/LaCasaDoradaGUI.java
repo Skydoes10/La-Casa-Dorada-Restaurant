@@ -66,6 +66,9 @@ public class LaCasaDoradaGUI {
     //Menu
     @FXML
     private BorderPane menuPane;
+    
+    @FXML
+    private BorderPane menuListPane;
 
     @FXML
     private Button btnOrder;
@@ -85,12 +88,10 @@ public class LaCasaDoradaGUI {
     @FXML
     private Button btnUsers;
     
+    //UserList
     @FXML
-    private Button btnAdd;
+    private TableView<User> tvUserList;
 
-    @FXML
-    private TableView<User> tvList;
-    
     @FXML
     private TableColumn<User, String> tcName;
 
@@ -105,6 +106,17 @@ public class LaCasaDoradaGUI {
 
     @FXML
     private TableColumn<User, String> tcPassword;
+
+    @FXML
+    private Button btnAddUser;
+
+    
+
+    
+    
+    
+    
+    
     
     private LaCasaDorada LaCD;
 
@@ -198,20 +210,31 @@ public class LaCasaDoradaGUI {
     
     //Menu Methods
     @FXML
-    public void loadUsersList(ActionEvent event) {
+    void loadUsersList(ActionEvent event) throws IOException {
+    	FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("userList.fxml"));
+    	fxmlLoader.setController(this);
+    	Parent listPane = fxmlLoader.load();
+    	
+    	menuListPane.setCenter(listPane);
+    	initializeUserTableView();
+    }
+    
+    private void initializeUserTableView() {
     	ObservableList<User> observableList;
     	observableList = FXCollections.observableArrayList(LaCD.getUsers());
     	
-		tvList.setItems(observableList);
+    	tvUserList.setItems(observableList);
 		tcName.setCellValueFactory(new PropertyValueFactory<User,String>("name"));
 		tcLastname.setCellValueFactory(new PropertyValueFactory<User,String>("lastName"));
 		tcID.setCellValueFactory(new PropertyValueFactory<User,String>("id"));
 		tcUsername.setCellValueFactory(new PropertyValueFactory<User,String>("username"));
 		tcPassword.setCellValueFactory(new PropertyValueFactory<User,String>("password"));
+		
+		tvUserList.setEditable(true);
     }
     
-    
-    
-    
-    
+    @FXML
+    void addOtherUser(ActionEvent event) throws IOException {
+    	loadRegister(event);
+    }
 }
