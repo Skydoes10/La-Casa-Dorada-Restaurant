@@ -23,14 +23,25 @@ public class Main extends Application{
 
 	@Override
 	public void start(Stage primaryStage) throws Exception{
-		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("login.fxml"));
-		fxmlLoader.setController(laCDGUI);
-		Parent root = fxmlLoader.load();		
-		
-		Scene scene = new Scene(root);
-		primaryStage.setScene(scene);
-		primaryStage.setTitle("La Casa Dorada");
-		primaryStage.show();
+		if(laCD.getUsers().isEmpty()) {
+			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("register.fxml"));
+			fxmlLoader.setController(laCDGUI);
+			Parent root = fxmlLoader.load();		
+			
+			Scene scene = new Scene(root);
+			primaryStage.setScene(scene);
+			primaryStage.setTitle("La Casa Dorada");
+			primaryStage.show();
+		}else {
+			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("login.fxml"));
+			fxmlLoader.setController(laCDGUI);
+			Parent root = fxmlLoader.load();		
+			
+			Scene scene = new Scene(root);
+			primaryStage.setScene(scene);
+			primaryStage.setTitle("La Casa Dorada");
+			primaryStage.show();
+		}
 	}
 
 }

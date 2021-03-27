@@ -8,6 +8,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
@@ -17,6 +18,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
+import javafx.stage.Stage;
 import model.Ingredient;
 import model.LaCasaDorada;
 import model.User;
@@ -110,6 +112,9 @@ public class LaCasaDoradaGUI {
 
     @FXML
     private Button btnAddUser;
+    
+    @FXML
+    private Button btnUpdateList;
 
     //IngredientList
     @FXML
@@ -171,8 +176,12 @@ public class LaCasaDoradaGUI {
     	fxmlLoader.setController(this);
     	Parent RegisterPane = fxmlLoader.load();
     	
-    	mainPanel.getChildren().clear();
-    	mainPanel.setTop(RegisterPane);
+    	Stage stage = new Stage();
+        stage.setTitle("Registro");
+        stage.setScene(new Scene(RegisterPane));  
+        stage.show();
+    	/**mainPanel.getChildren().clear();
+    	mainPanel.setTop(RegisterPane);**/
     }
     
     //Register Methods
@@ -194,15 +203,34 @@ public class LaCasaDoradaGUI {
         		alert.showAndWait();
     		}
     	}else {
-    		for(int i=0; i<LaCD.getUsers().size(); i++) {
-    			if(LaCD.getUsers().get(i).getId().equals(txtID.getText())) {
-    				Alert alert = new Alert(AlertType.ERROR);
-	    			alert.setTitle("El usuario ya existe");
-	    			alert.setHeaderText("Ya existe un usuario con el mismo ID");
-	    			alert.setContentText(null);
-	    			alert.showAndWait();
-    			}
+    		if(txtName.getText().isEmpty() || txtLastName.getText().isEmpty() || txtID.getText().isEmpty() || txtUsername2.getText().isEmpty() || txtPassword2.getText().isEmpty()) {
+    			Alert alert = new Alert(AlertType.ERROR);
+    			alert.setTitle("Error");
+    			alert.setHeaderText("Por favor llene todos los campos");
+    			alert.setContentText(null);
+    			alert.showAndWait();
+    		}else {
+    			boolean found = false;
+        		for(int i=0; i<LaCD.getUsers().size() && !found; i++) {
+        			if(LaCD.getUsers().get(i).getId().equals(txtID.getText())) {
+        				Alert alert = new Alert(AlertType.ERROR);
+    	    			alert.setTitle("El usuario ya existe");
+    	    			alert.setHeaderText("Ya existe un usuario con el mismo ID");
+    	    			alert.setContentText(null);
+    	    			alert.showAndWait();
+    	    			found = true;
+        			}
+        		}
+        		if(found==false) {
+        			LaCD.addUser(txtName.getText(), txtLastName.getText(), txtID.getText(), txtUsername2.getText(), txtPassword2.getText());
+                   	Alert alert = new Alert(AlertType.INFORMATION);
+            		alert.setTitle("Cuenta creada");
+            		alert.setHeaderText(null);
+            		alert.setContentText("Cuenta creada exitosamente");
+            		alert.showAndWait();
+        		}
     		}
+    		
     	}
     }
     
@@ -261,10 +289,18 @@ public class LaCasaDoradaGUI {
 		tvUserList.setEditable(true);
     }
     
+    //EmployeeList Methods
+    
+    
     //userList Methods
     @FXML
     public void addOtherUser(ActionEvent event) throws IOException {
     	loadRegister(event);
+    }
+    
+    @FXML
+    public void updateList(ActionEvent event) {
+    	initializeUserTableView();
     }
     
     @FXML
