@@ -9,7 +9,8 @@ public class LaCasaDorada {
 	private ArrayList<ProductType> pType;
 	private ArrayList<User> users;
 	private ArrayList<Employee> employees;
-
+	private ArrayList<Client> clients;
+	private ArrayList<Order> orders;
 	
 	public LaCasaDorada() {
 		products = new ArrayList<Product>();
@@ -33,11 +34,13 @@ public class LaCasaDorada {
 	}
 	
 	public void addIngredient(String name) {
-		
+		Ingredient ingredient = new Ingredient(name, Availability.HABILITADO);
+		ingredients.add(ingredient);
 	}
 	
 	public void addProductType(String name) {
-		
+		ProductType productType = new ProductType(name, Availability.HABILITADO);
+		pType.add(productType);
 	}
 	
 	public boolean deleteUser(String id) {
@@ -62,6 +65,31 @@ public class LaCasaDorada {
 		return deleted;
 	}
 	
+	public boolean deleteIngredient(String name) {
+		boolean deleted = false;
+		for(int i=0; i<ingredients.size() && !deleted; i++) {
+			if(ingredients.get(i).getName().equals(name)) {
+				ingredients.remove(i);
+				deleted = true;
+			}
+		}
+		return deleted;
+	}
+	
+	public boolean deletePType(String name) {
+		boolean deleted = false;
+		for(int i=0; i<pType.size() && !deleted; i++) {
+			if(pType.get(i).getName().equals(name)) {
+				pType.remove(i);
+				deleted = true;
+			}
+		}
+		return deleted;
+	}
+	
+	
+	
+	
 	public boolean searchUser(String id) {
 		boolean found = false;
 		for(int i=0; i<users.size() && !found; i++) {
@@ -71,6 +99,13 @@ public class LaCasaDorada {
 		}
 		return found;
 	}
+	
+	
+	
+	
+	
+	
+	
 	
 	public String RemoveProduct(String name) {
 		String message = "";

@@ -9,8 +9,8 @@ public class Product extends Object{
 	private String size;
 	private int price;
 	
-	public Product(String name, ProductType type, ArrayList<Ingredient> ingredients, String size, int price) {
-		super(name);
+	public Product(String name, Availability availability, ProductType type, ArrayList<Ingredient> ingredients, String size, int price) {
+		super(name, availability);
 		this.type = type;
 		this.ingredients = ingredients;
 		this.size = size;

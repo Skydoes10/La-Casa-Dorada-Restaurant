@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
@@ -12,7 +13,7 @@
    <center>
       <HBox prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
-            <TableView fx:id="tvEmployeeList" prefHeight="400.0" prefWidth="489.0">
+            <TableView fx:id="tvEmployeeList" prefHeight="600.0" prefWidth="803.0">
               <columns>
                 <TableColumn fx:id="tcNameE" prefWidth="100.0" text="Nombre" />
                 <TableColumn fx:id="tcLastnameE" prefWidth="100.0" text="Apellidos" />
@@ -20,14 +21,9 @@
                   <TableColumn fx:id="tcAvailabilityE" prefWidth="100.0" text="Disponibilidad" />
               </columns>
             </TableView>
-            <VBox prefHeight="500.0" prefWidth="201.0">
+            <VBox prefHeight="500.0" prefWidth="200.0">
                <children>
                   <Button fx:id="btnAddEmployee" mnemonicParsing="false" onAction="#addOtherEmployee" prefHeight="38.0" prefWidth="142.0" text="Añadir" textFill="#05c939">
-                     <font>
-                        <Font size="13.0" />
-                     </font>
-                  </Button>
-                  <Button fx:id="btnUpdateEList" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#updateListE" prefHeight="38.0" prefWidth="142.0" text="Actualizar" textFill="#0665c7">
                      <font>
                         <Font size="13.0" />
                      </font>
@@ -36,6 +32,14 @@
                      <font>
                         <Font size="13.0" />
                      </font>
+                  </Button>
+                  <Button fx:id="btnUpdateEList" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#updateListE" prefHeight="38.0" prefWidth="142.0" text="Actualizar Lista" textFill="#0665c7">
+                     <font>
+                        <Font size="13.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets top="482.0" />
+                     </VBox.margin>
                   </Button>
                </children>
             </VBox>

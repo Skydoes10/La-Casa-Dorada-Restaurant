@@ -85,6 +85,16 @@ public class LaCasaDoradaGUI {
     @FXML
     private Button btnCreateEmployee;
     
+    //RegisterIngredient
+    @FXML
+    private BorderPane addIngredientPane;
+
+    @FXML
+    private TextField txtNameIng;
+
+    @FXML
+    private Button btnCreateIng;
+    
     //Menu
     @FXML
     private BorderPane menuPane;
@@ -171,10 +181,19 @@ public class LaCasaDoradaGUI {
     private TableView<Ingredient> tvIngredientList;
 
     @FXML
-    private TableColumn<Ingredient, String> tcName1;
+    private TableColumn<Ingredient, String> tcNameIn;
 
     @FXML
-    private Button btnAddIngredient;
+    private TableColumn<Ingredient, String> tcAvailabilityIn;
+
+    @FXML
+    private Button btnAddIng;
+
+    @FXML
+    private Button btnDeleteIng;
+
+    @FXML
+    private Button btnUpdateListIng;
     
     
     
@@ -239,8 +258,9 @@ public class LaCasaDoradaGUI {
     	observableList = FXCollections.observableArrayList(LaCD.getIngredients());
     	
     	tvIngredientList.setItems(observableList);
-		tcName1.setCellValueFactory(new PropertyValueFactory<Ingredient,String>("name"));
-		
+    	tcNameIn.setCellValueFactory(new PropertyValueFactory<Ingredient,String>("name"));
+    	tcAvailabilityIn.setCellValueFactory(new PropertyValueFactory<Ingredient,String>("availability"));
+    	
 		tvIngredientList.setEditable(true);
     }
     
@@ -427,7 +447,39 @@ public class LaCasaDoradaGUI {
     	}
     }
     
-    //EmployeeList Methods
+    //Ingredient Methods
+    @FXML
+    public void addIngredient(ActionEvent event) {
+    	if(txtNameIng.getText().isEmpty()) {
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("Error");
+			alert.setHeaderText("Por favor llene todos los campos");
+			alert.setContentText(null);
+			alert.showAndWait();
+		}else {
+			boolean found = false;
+    		for(int i=0; i<LaCD.getIngredients().size() && !found; i++) {
+    			if(LaCD.getIngredients().get(i).getName().equals(txtNameIng.getText())) {
+    				Alert alert = new Alert(AlertType.ERROR);
+	    			alert.setTitle("El Ingrediente ya ha sido añadido antes");
+	    			alert.setHeaderText("Ya existe un Ingrediente con el mismo nombre");
+	    			alert.setContentText(null);
+	    			alert.showAndWait();
+	    			found = true;
+    			}
+    		}
+    		if(found==false) {
+    			LaCD.addIngredient(txtNameIng.getText());
+               	Alert alert = new Alert(AlertType.INFORMATION);
+        		alert.setTitle("Ingrediente añadido");
+        		alert.setHeaderText(null);
+        		alert.setContentText("Ingrediente añadido exitosamente");
+        		alert.showAndWait();
+    		}
+		}
+    }
+
+	//EmployeeList Methods
     @FXML
     public void addOtherEmployee(ActionEvent event) throws IOException {
     	FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("registerEmployee.fxml"));
@@ -503,14 +555,30 @@ public class LaCasaDoradaGUI {
     	}
     }
     
-   
-    
     //ingredientList Methods
     @FXML
-    public void addNewIngredient(ActionEvent event) {
+    void addOtherIng(ActionEvent event) throws IOException {
+    	FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("registerIngredient.fxml"));
+    	fxmlLoader.setController(this);
+    	Parent RegisterPane = fxmlLoader.load();
+    	
+    	Stage stage = new Stage();
+        stage.setTitle("Añadir Ingrediente");
+        stage.setScene(new Scene(RegisterPane));  
+        stage.show();
+    }
 
+    @FXML
+    void updateListIng(ActionEvent event) {
+    	initializeIngredientTableView();
     }
     
+    @FXML
+    void deleteIng(ActionEvent event) {
+    	
+    }
+
     
+
     
 }
