@@ -1,6 +1,7 @@
 package ui;
 
 import java.io.IOException;
+import java.util.Optional;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -11,6 +12,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -133,6 +135,9 @@ public class LaCasaDoradaGUI {
     @FXML
     private Button btnUpdateList;
     
+    @FXML
+    private Button btnDeleteUser;
+    
     //EmployeeList
     @FXML
     private TableView<Employee> tvEmployeeList;
@@ -151,6 +156,8 @@ public class LaCasaDoradaGUI {
 
     @FXML
     private Button btnUpdateEList;
+    
+    
 
     //IngredientList
     @FXML
@@ -224,7 +231,7 @@ public class LaCasaDoradaGUI {
     	tvIngredientList.setItems(observableList);
 		tcName1.setCellValueFactory(new PropertyValueFactory<Ingredient,String>("name"));
 		
-		tvUserList.setEditable(true);
+		tvIngredientList.setEditable(true);
     }
     
     @FXML
@@ -297,6 +304,7 @@ public class LaCasaDoradaGUI {
     			alert.showAndWait();
     		}else {
     			LaCD.addUser(txtName.getText(), txtLastName.getText(), txtID.getText(), txtUsername2.getText(), txtPassword2.getText());
+    			LaCD.addEmployee(txtName.getText(), txtLastName.getText(), txtID.getText());
                	Alert alert = new Alert(AlertType.INFORMATION);
         		alert.setTitle("Cuenta creada");
         		alert.setHeaderText(null);
@@ -312,23 +320,37 @@ public class LaCasaDoradaGUI {
     			alert.showAndWait();
     		}else {
     			boolean found = false;
-        		for(int i=0; i<LaCD.getUsers().size() && !found; i++) {
-        			if(LaCD.getUsers().get(i).getId().equals(txtID.getText())) {
-        				Alert alert = new Alert(AlertType.ERROR);
-    	    			alert.setTitle("El usuario ya existe");
-    	    			alert.setHeaderText("Ya existe un usuario con el mismo ID");
-    	    			alert.setContentText(null);
-    	    			alert.showAndWait();
-    	    			found = true;
+    			boolean foundEmployee = false;
+        		for(int i=0; i<LaCD.getEmployees().size() && !foundEmployee; i++) {
+        			if(LaCD.getEmployees().get(i).getId().equals(txtID.getText())) {
+        				foundEmployee = true;
         			}
         		}
-        		if(found==false) {
-        			LaCD.addUser(txtName.getText(), txtLastName.getText(), txtID.getText(), txtUsername2.getText(), txtPassword2.getText());
-                   	Alert alert = new Alert(AlertType.INFORMATION);
-            		alert.setTitle("Cuenta creada");
-            		alert.setHeaderText(null);
-            		alert.setContentText("Cuenta creada exitosamente");
-            		alert.showAndWait();
+        		if(foundEmployee==true) {
+        			for(int i=0; i<LaCD.getUsers().size() && !found; i++) {
+            			if(LaCD.getUsers().get(i).getId().equals(txtID.getText())) {
+            				Alert alert = new Alert(AlertType.ERROR);
+        	    			alert.setTitle("El usuario ya existe");
+        	    			alert.setHeaderText("Ya existe un usuario con el mismo ID");
+        	    			alert.setContentText(null);
+        	    			alert.showAndWait();
+        	    			found = true;
+            			}
+            		}
+            		if(found==false) {
+            			LaCD.addUser(txtName.getText(), txtLastName.getText(), txtID.getText(), txtUsername2.getText(), txtPassword2.getText());
+                       	Alert alert = new Alert(AlertType.INFORMATION);
+                		alert.setTitle("Cuenta creada");
+                		alert.setHeaderText(null);
+                		alert.setContentText("Cuenta creada exitosamente");
+                		alert.showAndWait();
+            		}
+        		}else {
+        			Alert alert = new Alert(AlertType.ERROR);
+	    			alert.setTitle("Error");
+	    			alert.setHeaderText("El usuario ha agregar no es un empleado");
+	    			alert.setContentText(null);
+	    			alert.showAndWait();
         		}
     		}
     	}
@@ -421,6 +443,26 @@ public class LaCasaDoradaGUI {
     public void updateListU(ActionEvent event) {
     	initializeUserTableView();
     }
+    
+    @FXML
+    public void deleteUser(ActionEvent event) {
+    	Alert alert = new Alert(AlertType.CONFIRMATION);
+    	alert.setTitle("Confirmación");
+    	alert.setContentText("Esta seguro de eliminar al usuario "+tvUserList.getSelectionModel().getSelectedItem().getUsername()+"?");
+
+    	Optional<ButtonType> result = alert.showAndWait();
+    	if (result.get() == ButtonType.OK){
+    		if(LaCD.deleteUser(tvUserList.getSelectionModel().getSelectedItem().getId())) {
+        		Alert alert1 = new Alert(AlertType.INFORMATION);
+        		alert1.setTitle("Usuario eliminado");
+        		alert1.setHeaderText(null);
+        		alert1.setContentText("Usuario eliminado exitosamente");
+        		alert1.showAndWait();
+        	}
+    	}
+    }
+    
+   
     
     //ingredientList Methods
     @FXML

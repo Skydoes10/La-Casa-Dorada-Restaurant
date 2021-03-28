@@ -28,25 +28,27 @@ public class LaCasaDorada {
 		employees.add(employee);
 	}
 	
-	public String addProduct(String name, ProductType type, String size, int price) {
-		String message = "Product added";
-		Product product = new Product(name, type, ingredients, size, price);
-		products.add(product);
-		return message;
+	public void addProduct(String name, ProductType type, String size, int price) {
+		
 	}
 	
-	public String addIngredient(String name) {
-		String message = "Ingredient added";
-		Ingredient ingredient = new Ingredient(name);
-		ingredients.add(ingredient);		
-		return message;
+	public void addIngredient(String name) {
+		
 	}
 	
-	public String addProductType(String name) {
-		String message = "Type of product added";
-		ProductType pt = new ProductType(name);
-		pType.add(pt);		
-		return message;
+	public void addProductType(String name) {
+		
+	}
+	
+	public boolean deleteUser(String id) {
+		boolean deleted = false;
+		for(int i=0; i<users.size() && !deleted; i++) {
+			if(users.get(i).getId().equals(id)) {
+				users.remove(i);
+				deleted = true;
+			}
+		}
+		return deleted;
 	}
 	
 	public String RemoveProduct(String name) {
