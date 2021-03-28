@@ -19,6 +19,7 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import model.Employee;
 import model.Ingredient;
 import model.LaCasaDorada;
 import model.User;
@@ -41,7 +42,7 @@ public class LaCasaDoradaGUI {
     @FXML
     private Button btnSignUp;
     
-    //Register
+    //RegisterUser
     @FXML
     private BorderPane registerPane;
     
@@ -65,6 +66,22 @@ public class LaCasaDoradaGUI {
     
     @FXML
     private Button btnBack;
+    
+    //RegisterEmployee
+    @FXML
+    private BorderPane addEmployeePane;
+
+    @FXML
+    private TextField txtNameE;
+
+    @FXML
+    private TextField txtLastNameE;
+
+    @FXML
+    private TextField txtIDE;
+
+    @FXML
+    private Button btnCreateEmployee;
     
     //Menu
     @FXML
@@ -115,6 +132,25 @@ public class LaCasaDoradaGUI {
     
     @FXML
     private Button btnUpdateList;
+    
+    //EmployeeList
+    @FXML
+    private TableView<Employee> tvEmployeeList;
+
+    @FXML
+    private TableColumn<Employee, String> tcNameE;
+
+    @FXML
+    private TableColumn<Employee, String> tcLastnameE;
+
+    @FXML
+    private TableColumn<Employee, String> tcIDE;
+
+    @FXML
+    private Button btnAddEmployee;
+
+    @FXML
+    private Button btnUpdateEList;
 
     //IngredientList
     @FXML
@@ -170,6 +206,74 @@ public class LaCasaDoradaGUI {
     	}
     }
     
+    //Menu Methods
+    @FXML
+    public void loadIngredientsList(ActionEvent event) throws IOException {
+    	FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("ingredientList.fxml"));
+    	fxmlLoader.setController(this);
+    	Parent listPane = fxmlLoader.load();
+    	
+    	menuListPane.setCenter(listPane);
+    	initializeIngredientTableView();
+    }
+    
+    public void initializeIngredientTableView() {
+    	ObservableList<Ingredient> observableList;
+    	observableList = FXCollections.observableArrayList(LaCD.getIngredients());
+    	
+    	tvIngredientList.setItems(observableList);
+		tcName1.setCellValueFactory(new PropertyValueFactory<Ingredient,String>("name"));
+		
+		tvUserList.setEditable(true);
+    }
+    
+    @FXML
+    void loadEmployeeList(ActionEvent event) throws IOException {
+    	FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("employeeList.fxml"));
+    	fxmlLoader.setController(this);
+    	Parent listPane = fxmlLoader.load();
+    	
+    	menuListPane.setCenter(listPane);
+    	initializeUserTableView();
+    }
+    
+    public void initializeEmployeeTableView() {
+    	ObservableList<Employee> observableList;
+    	observableList = FXCollections.observableArrayList(LaCD.getEmployees());
+    	
+    	tvEmployeeList.setItems(observableList);
+    	tcNameE.setCellValueFactory(new PropertyValueFactory<Employee,String>("name"));
+		tcLastnameE.setCellValueFactory(new PropertyValueFactory<Employee,String>("lastName"));
+		tcIDE.setCellValueFactory(new PropertyValueFactory<Employee,String>("id"));
+		
+		tvEmployeeList.setEditable(true);
+    }
+    
+    @FXML
+    public void loadUsersList(ActionEvent event) throws IOException {
+    	FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("userList.fxml"));
+    	fxmlLoader.setController(this);
+    	Parent listPane = fxmlLoader.load();
+    	
+    	menuListPane.setCenter(listPane);
+    	initializeUserTableView();
+    }
+    
+    public void initializeUserTableView() {
+    	ObservableList<User> observableList;
+    	observableList = FXCollections.observableArrayList(LaCD.getUsers());
+    	
+    	tvUserList.setItems(observableList);
+		tcName.setCellValueFactory(new PropertyValueFactory<User,String>("name"));
+		tcLastname.setCellValueFactory(new PropertyValueFactory<User,String>("lastName"));
+		tcID.setCellValueFactory(new PropertyValueFactory<User,String>("id"));
+		tcUsername.setCellValueFactory(new PropertyValueFactory<User,String>("username"));
+		tcPassword.setCellValueFactory(new PropertyValueFactory<User,String>("password"));
+		
+		tvUserList.setEditable(true);
+    }
+    
+    //User Methods
     @FXML
     public void loadRegister(ActionEvent event) throws IOException {
     	FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("register.fxml"));
@@ -180,11 +284,8 @@ public class LaCasaDoradaGUI {
         stage.setTitle("Registro");
         stage.setScene(new Scene(RegisterPane));  
         stage.show();
-    	/**mainPanel.getChildren().clear();
-    	mainPanel.setTop(RegisterPane);**/
     }
     
-    //Register Methods
     @FXML
     public void addUser(ActionEvent event) {
     	if(LaCD.getUsers().isEmpty()) {
@@ -230,7 +331,6 @@ public class LaCasaDoradaGUI {
             		alert.showAndWait();
         		}
     		}
-    		
     	}
     }
     
@@ -244,53 +344,72 @@ public class LaCasaDoradaGUI {
     	registerPane.setTop(LogInPane);
     }
     
-    //Menu Methods
+    //Employee Methods
     @FXML
-    public void loadIngredientsList(ActionEvent event) throws IOException {
-    	FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("ingredientList.fxml"));
-    	fxmlLoader.setController(this);
-    	Parent listPane = fxmlLoader.load();
-    	
-    	menuListPane.setCenter(listPane);
-    	initializeIngredientTableView();
-    }
-    
-    public void initializeIngredientTableView() {
-    	ObservableList<Ingredient> observableList;
-    	observableList = FXCollections.observableArrayList(LaCD.getIngredients());
-    	
-    	tvIngredientList.setItems(observableList);
-		tcName1.setCellValueFactory(new PropertyValueFactory<Ingredient,String>("name"));
-		
-		tvUserList.setEditable(true);
-    }
-    
-    @FXML
-    public void loadUsersList(ActionEvent event) throws IOException {
-    	FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("userList.fxml"));
-    	fxmlLoader.setController(this);
-    	Parent listPane = fxmlLoader.load();
-    	
-    	menuListPane.setCenter(listPane);
-    	initializeUserTableView();
-    }
-    
-    public void initializeUserTableView() {
-    	ObservableList<User> observableList;
-    	observableList = FXCollections.observableArrayList(LaCD.getUsers());
-    	
-    	tvUserList.setItems(observableList);
-		tcName.setCellValueFactory(new PropertyValueFactory<User,String>("name"));
-		tcLastname.setCellValueFactory(new PropertyValueFactory<User,String>("lastName"));
-		tcID.setCellValueFactory(new PropertyValueFactory<User,String>("id"));
-		tcUsername.setCellValueFactory(new PropertyValueFactory<User,String>("username"));
-		tcPassword.setCellValueFactory(new PropertyValueFactory<User,String>("password"));
-		
-		tvUserList.setEditable(true);
+    void addEmployee(ActionEvent event) {
+    	if(LaCD.getEmployees().isEmpty()) {
+    		if(txtNameE.getText().isEmpty() || txtLastNameE.getText().isEmpty() || txtIDE.getText().isEmpty()) {
+    			Alert alert = new Alert(AlertType.ERROR);
+    			alert.setTitle("Error");
+    			alert.setHeaderText("Por favor llene todos los campos");
+    			alert.setContentText(null);
+    			alert.showAndWait();
+    		}else {
+    			LaCD.addEmployee(txtNameE.getText(), txtLastNameE.getText(), txtIDE.getText());
+               	Alert alert = new Alert(AlertType.INFORMATION);
+        		alert.setTitle("Empleado añadido");
+        		alert.setHeaderText(null);
+        		alert.setContentText("Empleado añadido exitosamente");
+        		alert.showAndWait();
+    		}
+    	}else {
+    		if(txtNameE.getText().isEmpty() || txtLastNameE.getText().isEmpty() || txtIDE.getText().isEmpty()) {
+    			Alert alert = new Alert(AlertType.ERROR);
+    			alert.setTitle("Error");
+    			alert.setHeaderText("Por favor llene todos los campos");
+    			alert.setContentText(null);
+    			alert.showAndWait();
+    		}else {
+    			boolean found = false;
+        		for(int i=0; i<LaCD.getEmployees().size() && !found; i++) {
+        			if(LaCD.getEmployees().get(i).getId().equals(txtIDE.getText())) {
+        				Alert alert = new Alert(AlertType.ERROR);
+    	    			alert.setTitle("El empleado ya ha sido añadido antes");
+    	    			alert.setHeaderText("Ya existe un empleado con el mismo ID");
+    	    			alert.setContentText(null);
+    	    			alert.showAndWait();
+    	    			found = true;
+        			}
+        		}
+        		if(found==false) {
+        			LaCD.addEmployee(txtNameE.getText(), txtLastNameE.getText(), txtIDE.getText());
+                   	Alert alert = new Alert(AlertType.INFORMATION);
+            		alert.setTitle("Empleado añadido");
+            		alert.setHeaderText(null);
+            		alert.setContentText("Empleado añadido exitosamente");
+            		alert.showAndWait();
+        		}
+    		}
+    	}
     }
     
     //EmployeeList Methods
-    
+    @FXML
+    void addOtherEmployee(ActionEvent event) throws IOException {
+    	FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("registerEmployee.fxml"));
+    	fxmlLoader.setController(this);
+    	Parent RegisterPane = fxmlLoader.load();
+    	
+    	Stage stage = new Stage();
+        stage.setTitle("Añadir Empleado");
+        stage.setScene(new Scene(RegisterPane));  
+        stage.show();
+    }
+
+    @FXML
+    void updateListE(ActionEvent event) {
+    	initializeEmployeeTableView();
+    }
     
     //userList Methods
     @FXML
@@ -299,17 +418,15 @@ public class LaCasaDoradaGUI {
     }
     
     @FXML
-    public void updateList(ActionEvent event) {
+    public void updateListU(ActionEvent event) {
     	initializeUserTableView();
     }
     
+    //ingredientList Methods
     @FXML
     public void addNewIngredient(ActionEvent event) {
 
     }
-    
-    //ingredientList Methods
-    
     
     
     

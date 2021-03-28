@@ -8,17 +8,24 @@ public class LaCasaDorada {
 	private ArrayList<Ingredient> ingredients;
 	private ArrayList<ProductType> pType;
 	private ArrayList<User> users;
+	private ArrayList<Employee> employees;
 
 	
 	public LaCasaDorada() {
 		products = new ArrayList<Product>();
 		ingredients = new ArrayList<Ingredient>();
 		users = new ArrayList<User>();
+		employees = new ArrayList<Employee>();
 	}
 	
 	public void addUser(String name, String lastname, String id, String username, String password) {
 		User user = new User(name, lastname, id, username, password);
 		users.add(user);
+	}
+	
+	public void addEmployee(String name, String lastname, String id) {
+		Employee employee = new Employee(name, lastname, id);
+		employees.add(employee);
 	}
 	
 	public String addProduct(String name, ProductType type, String size, int price) {
@@ -71,6 +78,10 @@ public class LaCasaDorada {
 
 	public ArrayList<User> getUsers() {
 		return users;
+	}
+	
+	public ArrayList<Employee> getEmployees() {
+		return employees;
 	}
 
 	public ArrayList<Product> getProducts() {

@@ -28,7 +28,7 @@
                         <Font size="13.0" />
                      </font>
                   </Button>
-                  <Button fx:id="btnUpdateList" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#updateList" prefHeight="38.0" prefWidth="142.0" text="Actualizar" textFill="#0665c7">
+                  <Button fx:id="btnUpdateList" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#updateListU" prefHeight="38.0" prefWidth="142.0" text="Actualizar" textFill="#0665c7">
                      <font>
                         <Font size="13.0" />
                      </font>
