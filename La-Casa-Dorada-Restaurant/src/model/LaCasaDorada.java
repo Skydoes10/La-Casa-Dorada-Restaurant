@@ -19,12 +19,12 @@ public class LaCasaDorada {
 	}
 	
 	public void addUser(String name, String lastname, String id, String username, String password) {
-		User user = new User(name, lastname, id, username, password);
+		User user = new User(name, lastname, id, Availability.HABILITADO, username, password);
 		users.add(user);
 	}
 	
 	public void addEmployee(String name, String lastname, String id) {
-		Employee employee = new Employee(name, lastname, id);
+		Employee employee = new Employee(name, lastname, id, Availability.HABILITADO);
 		employees.add(employee);
 	}
 	
@@ -49,6 +49,27 @@ public class LaCasaDorada {
 			}
 		}
 		return deleted;
+	}
+	
+	public boolean deleteEmployee(String id) {
+		boolean deleted = false;
+		for(int i=0; i<employees.size() && !deleted; i++) {
+			if(employees.get(i).getId().equals(id)) {
+				employees.remove(i);
+				deleted = true;
+			}
+		}
+		return deleted;
+	}
+	
+	public boolean searchUser(String id) {
+		boolean found = false;
+		for(int i=0; i<users.size() && !found; i++) {
+			if(users.get(i).getId().equals(id)) {
+				found = true;
+			}
+		}
+		return found;
 	}
 	
 	public String RemoveProduct(String name) {

@@ -128,6 +128,9 @@ public class LaCasaDoradaGUI {
 
     @FXML
     private TableColumn<User, String> tcPassword;
+    
+    @FXML
+    private TableColumn<User, String> tcAvailabilityU;
 
     @FXML
     private Button btnAddUser;
@@ -150,6 +153,9 @@ public class LaCasaDoradaGUI {
 
     @FXML
     private TableColumn<Employee, String> tcIDE;
+    
+    @FXML
+    private TableColumn<Employee, String> tcAvailabilityE;
 
     @FXML
     private Button btnAddEmployee;
@@ -157,7 +163,8 @@ public class LaCasaDoradaGUI {
     @FXML
     private Button btnUpdateEList;
     
-    
+    @FXML
+    private Button btnDeleteEmployee;
 
     //IngredientList
     @FXML
@@ -191,11 +198,14 @@ public class LaCasaDoradaGUI {
     		for(int i=0; i<LaCD.getUsers().size(); i++) {
 	    		if(LaCD.getUsers().get(i).getUsername().equals(txtUsername.getText()) && (LaCD.getUsers().get(i).getPassword().equals(txtPassword.getText()))) {
 	    			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("menu.fxml"));
-	            	fxmlLoader.setController(this);
-	            	Parent menuPane = fxmlLoader.load();
-	            	
-	            	mainPanel.getChildren().clear();
-	            	mainPanel.setTop(menuPane);
+	    	    	fxmlLoader.setController(this);
+	    	    	Parent mainPane = fxmlLoader.load();
+	    	    	
+	    	    	Stage stage = new Stage();
+	    	        stage.setTitle("La Casa Dorada");
+	    	        stage.setScene(new Scene(mainPane));  
+	    	        stage.show();
+	    	        
 	    		}else {
 	        		Alert alert = new Alert(AlertType.ERROR);
 	    			alert.setTitle("Inicio de sesion denegado");
@@ -235,7 +245,7 @@ public class LaCasaDoradaGUI {
     }
     
     @FXML
-    void loadEmployeeList(ActionEvent event) throws IOException {
+    public void loadEmployeeList(ActionEvent event) throws IOException {
     	FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("employeeList.fxml"));
     	fxmlLoader.setController(this);
     	Parent listPane = fxmlLoader.load();
@@ -252,6 +262,7 @@ public class LaCasaDoradaGUI {
     	tcNameE.setCellValueFactory(new PropertyValueFactory<Employee,String>("name"));
 		tcLastnameE.setCellValueFactory(new PropertyValueFactory<Employee,String>("lastName"));
 		tcIDE.setCellValueFactory(new PropertyValueFactory<Employee,String>("id"));
+		tcAvailabilityE.setCellValueFactory(new PropertyValueFactory<Employee,String>("availability"));
 		
 		tvEmployeeList.setEditable(true);
     }
@@ -276,6 +287,7 @@ public class LaCasaDoradaGUI {
 		tcID.setCellValueFactory(new PropertyValueFactory<User,String>("id"));
 		tcUsername.setCellValueFactory(new PropertyValueFactory<User,String>("username"));
 		tcPassword.setCellValueFactory(new PropertyValueFactory<User,String>("password"));
+		tcAvailabilityU.setCellValueFactory(new PropertyValueFactory<User,String>("availability"));
 		
 		tvUserList.setEditable(true);
     }
@@ -368,7 +380,7 @@ public class LaCasaDoradaGUI {
     
     //Employee Methods
     @FXML
-    void addEmployee(ActionEvent event) {
+    public void addEmployee(ActionEvent event) {
     	if(LaCD.getEmployees().isEmpty()) {
     		if(txtNameE.getText().isEmpty() || txtLastNameE.getText().isEmpty() || txtIDE.getText().isEmpty()) {
     			Alert alert = new Alert(AlertType.ERROR);
@@ -417,7 +429,7 @@ public class LaCasaDoradaGUI {
     
     //EmployeeList Methods
     @FXML
-    void addOtherEmployee(ActionEvent event) throws IOException {
+    public void addOtherEmployee(ActionEvent event) throws IOException {
     	FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("registerEmployee.fxml"));
     	fxmlLoader.setController(this);
     	Parent RegisterPane = fxmlLoader.load();
@@ -429,8 +441,36 @@ public class LaCasaDoradaGUI {
     }
 
     @FXML
-    void updateListE(ActionEvent event) {
+    public void updateListE(ActionEvent event) {
     	initializeEmployeeTableView();
+    }
+    
+    @FXML
+    public void deleteEmployee(ActionEvent event) {
+    	Alert alert = new Alert(AlertType.CONFIRMATION);
+    	alert.setTitle("Confirmación");
+    	alert.setHeaderText(null);
+    	alert.setContentText("Esta seguro de eliminar al/la empleado(da) "+tvEmployeeList.getSelectionModel().getSelectedItem().getName()+"? En caso de que el/la empleado(da) tenga un usuario asociado a su id, tambien será eliminado");
+
+    	Optional<ButtonType> result = alert.showAndWait();
+    	if (result.get() == ButtonType.OK){
+    		if(LaCD.deleteEmployee(tvEmployeeList.getSelectionModel().getSelectedItem().getId())) {
+    			if(LaCD.searchUser(tvEmployeeList.getSelectionModel().getSelectedItem().getId())) {
+    				if(LaCD.deleteUser(tvEmployeeList.getSelectionModel().getSelectedItem().getId())) {
+    					Alert alert1 = new Alert(AlertType.INFORMATION);
+                		alert1.setTitle("Usuario eliminado");
+                		alert1.setHeaderText(null);
+                		alert1.setContentText("Usuario asociado al empleado eliminado exitosamente");
+                		alert1.showAndWait();
+    				}
+    			}
+    			Alert alert1 = new Alert(AlertType.INFORMATION);
+        		alert1.setTitle("Empleado eliminado");
+        		alert1.setHeaderText(null);
+        		alert1.setContentText("Empleado eliminado exitosamente");
+        		alert1.showAndWait();
+        	}
+    	}
     }
     
     //userList Methods
@@ -448,6 +488,7 @@ public class LaCasaDoradaGUI {
     public void deleteUser(ActionEvent event) {
     	Alert alert = new Alert(AlertType.CONFIRMATION);
     	alert.setTitle("Confirmación");
+    	alert.setHeaderText(null);
     	alert.setContentText("Esta seguro de eliminar al usuario "+tvUserList.getSelectionModel().getSelectedItem().getUsername()+"?");
 
     	Optional<ButtonType> result = alert.showAndWait();

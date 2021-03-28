@@ -5,8 +5,8 @@ public class User extends Employee {
 	private String username;
 	private String password;
 	
-	public User(String n, String ln, String id, String u, String pw) {
-		super(n, ln, id);
+	public User(String n, String ln, String id, Availability avl, String u, String pw) {
+		super(n, ln, id, avl);
 		username = u;
 		password = pw;
 	}
