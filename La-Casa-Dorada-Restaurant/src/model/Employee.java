@@ -1,7 +1,8 @@
 package model;
 
 public class Employee extends Object{
-
+	private static final long serialVersionUID = 1;
+	
 	private String lastName;
 	private String id;
 	

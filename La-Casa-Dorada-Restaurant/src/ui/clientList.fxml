@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="600.0" prefWidth="888.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+   <center>
+      <HBox prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <children>
+            <TableView fx:id="tvClientList" prefHeight="600.0" prefWidth="804.0">
+              <columns>
+                <TableColumn fx:id="tcNameClient" prefWidth="100.0" text="Nombre" />
+                <TableColumn fx:id="tcLastnameClient" prefWidth="100.0" text="Apellidos" />
+                  <TableColumn fx:id="tcIDClient" prefWidth="100.0" text="ID" />
+                  <TableColumn fx:id="tcAddressClient" prefWidth="100.0" text="Dirección" />
+                  <TableColumn fx:id="tcPhoneClient" prefWidth="100.0" text="Teléfono" />
+                  <TableColumn fx:id="tcCommentsClient" prefWidth="145.0" text="Comentarios" />
+                  <TableColumn fx:id="tcAvailabilityClient" prefWidth="100.0" text="Disponibilidad" />
+              </columns>
+            </TableView>
+            <VBox prefHeight="500.0" prefWidth="200.0">
+               <children>
+                  <Button fx:id="btnAddClient" mnemonicParsing="false" onAction="#addOtherClient" prefHeight="38.0" prefWidth="142.0" text="Añadir" textFill="#05c939">
+                     <font>
+                        <Font size="13.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="btnDeleteClient" layoutX="10.0" layoutY="48.0" mnemonicParsing="false" onAction="#deleteClient" prefHeight="38.0" prefWidth="142.0" text="Eliminar" textFill="#f81e1e">
+                     <font>
+                        <Font size="13.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="btnUpdateListClient" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#updateListClient" prefHeight="38.0" prefWidth="142.0" text="Actualizar Lista" textFill="#0665c7">
+                     <font>
+                        <Font size="13.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets top="485.0" />
+                     </VBox.margin>
+                  </Button>
+               </children>
+            </VBox>
+         </children>
+      </HBox>
+   </center>
+</BorderPane>

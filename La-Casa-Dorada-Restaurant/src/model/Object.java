@@ -1,6 +1,9 @@
 package model;
 
-public class Object {
+import java.io.Serializable;
+
+public class Object implements Serializable{
+	private static final long serialVersionUID = 1;
 	
 	private String name;
 	private Availability availability;

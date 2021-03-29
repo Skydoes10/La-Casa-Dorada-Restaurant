@@ -1,32 +1,21 @@
 package model;
 
-import java.util.ArrayList;
-import java.util.List;
-
-public class Client {
+public class Client extends Object{
+	private static final long serialVersionUID = 1;
 	
-	private String name;
 	private String lastName;
 	private String address;
 	private int id;
 	private int phone;
-	private List<String> comments;
-	
-	public Client(String n, String ln, String a, int id, int p) {
-		name = n;
-		lastName = ln;
-		address = a;
+	private String comments;
+
+	public Client(String name, Availability avl, String ln, String a, int id, int p, String com) {
+		super(name, avl);
+		this.lastName = ln;
+		this.address = a;
 		this.id = id;
-		phone = p;
-		comments = new ArrayList<>();
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
+		this.phone = p;
+		comments = com;
 	}
 
 	public String getLastName() {
@@ -61,11 +50,11 @@ public class Client {
 		this.phone = phone;
 	}
 
-	public List<String> getComments() {
+	public String getComments() {
 		return comments;
 	}
 
-	public void setComments(List<String> comments) {
+	public void setComments(String comments) {
 		this.comments = comments;
 	}
 	

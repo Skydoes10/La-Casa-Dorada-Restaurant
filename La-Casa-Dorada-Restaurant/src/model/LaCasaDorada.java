@@ -30,7 +30,7 @@ public class LaCasaDorada {
 		employees.add(employee);
 	}
 	
-	public void addProduct(String name, String type, ArrayList<Ingredient> ingredients, ArrayList<Size> size, ArrayList<Integer> prices) {
+	public void addProduct(String name, String type, ArrayList<String> ingredients, ArrayList<Size> size, ArrayList<Integer> prices) {
 		Product product = new Product(name, Availability.HABILITADO, type, ingredients, size, prices);
 		products.add(product);
 	}

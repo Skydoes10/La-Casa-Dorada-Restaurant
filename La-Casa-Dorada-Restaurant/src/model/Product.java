@@ -3,16 +3,17 @@ package model;
 import java.util.ArrayList;
 
 public class Product extends Object{
+	private static final long serialVersionUID = 1;
 	
 	private String type;
-	private ArrayList<Ingredient> ingredients;
+	private ArrayList<String> ingredients;
 	private ArrayList<Size> size;
 	private ArrayList<Integer> prices;
 	
-	public Product(String name, Availability availability, String type, ArrayList<Ingredient> ingredients, ArrayList<Size> size, ArrayList<Integer> prices) {
+	public Product(String name, Availability availability, String type, ArrayList<String> ingredients, ArrayList<Size> size, ArrayList<Integer> prices) {
 		super(name, availability);
 		this.type = type;
-		ingredients = new ArrayList<Ingredient>();
+		ingredients = new ArrayList<String>();
 		size = new ArrayList<Size>();
 		prices = new ArrayList<Integer>();
 	}
@@ -25,11 +26,11 @@ public class Product extends Object{
 		this.type = type;
 	}
 
-	public ArrayList<Ingredient> getIngredients() {
+	public ArrayList<String> getIngredients() {
 		return ingredients;
 	}
 
-	public void setIngredients(ArrayList<Ingredient> ingredients) {
+	public void setIngredients(ArrayList<String> ingredients) {
 		this.ingredients = ingredients;
 	}
 

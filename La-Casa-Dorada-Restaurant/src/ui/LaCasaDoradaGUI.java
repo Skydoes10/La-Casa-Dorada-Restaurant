@@ -19,12 +19,14 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
+import model.Client;
 import model.Employee;
 import model.Ingredient;
 import model.LaCasaDorada;
@@ -110,13 +112,13 @@ public class LaCasaDoradaGUI {
     private TextField txtNameProd;
 
     @FXML
-    private PasswordField txtPriceProd;
+    private TextField txtPriceProd;
     
     @FXML
-    private PasswordField txtPriceProd1;
+    private TextField txtPriceProd1;
 
     @FXML
-    private PasswordField txtPriceProd2;
+    private TextField txtPriceProd2;
 
     @FXML
     private Button btnAddProduct;
@@ -134,7 +136,7 @@ public class LaCasaDoradaGUI {
     private CheckBox chbSize1;
 
     @FXML
-    private ComboBox<Ingredient> cbIngredients;
+    private ComboBox<String> cbIngredients;
 
     @FXML
     private Button btnAddIngredient;
@@ -151,6 +153,31 @@ public class LaCasaDoradaGUI {
 
     @FXML
     private Button btnCreatePType;
+    
+    //RegisterClient
+    @FXML
+    private BorderPane registerClientPane;
+
+    @FXML
+    private TextField txtNameCli;
+
+    @FXML
+    private TextField txtLastNameCli;
+
+    @FXML
+    private TextField txtIDCli;
+
+    @FXML
+    private TextField txtAddressCli;
+
+    @FXML
+    private Button btnCreateClient;
+
+    @FXML
+    private TextField txtPhoneCli;
+
+    @FXML
+    private TextArea txACommentsCli;
     
     //Menu
     @FXML
@@ -304,18 +331,53 @@ public class LaCasaDoradaGUI {
 
     @FXML
     private Button btnUpdatePTList;
+    
+    //ClientList
+    @FXML
+    private TableView<Client> tvClientList;
+
+    @FXML
+    private TableColumn<Client, String> tcNameClient;
+
+    @FXML
+    private TableColumn<Client, String> tcLastnameClient;
+
+    @FXML
+    private TableColumn<Client, String> tcIDClient;
+
+    @FXML
+    private TableColumn<Client, String> tcAddressClient;
+
+    @FXML
+    private TableColumn<Client, String> tcPhoneClient;
+
+    @FXML
+    private TableColumn<Client, String> tcCommentsClient;
+
+    @FXML
+    private TableColumn<Client, String> tcAvailabilityClient;
+
+    @FXML
+    private Button btnAddClient;
+
+    @FXML
+    private Button btnDeleteClient;
+
+    @FXML
+    private Button btnUpdateListClient;
+
 
     
     private LaCasaDorada LaCD;
     private int clic;
-    private ArrayList<Ingredient> arrayIng;
+    private ArrayList<String> arrayIng;
     private ArrayList<Size> arraySize;
     private ArrayList<Integer> arrayPrice;
 
     public LaCasaDoradaGUI(LaCasaDorada CD) {
 		LaCD = CD;
 		clic = 0;
-		arrayIng = new ArrayList<Ingredient>();
+		arrayIng = new ArrayList<String>();
 		arraySize = new ArrayList<Size>();
 		arrayPrice = new ArrayList<Integer>();
 	}
@@ -688,13 +750,14 @@ public class LaCasaDoradaGUI {
     }
     
     public void addComboBox(int clic) {
-    	ComboBox<Ingredient> comboBox = new ComboBox<Ingredient>();
+    	ComboBox<String> comboBox = new ComboBox<String>();
     	comboBox.setPrefWidth(170);
     	gPaneProduct.add(comboBox, 3, 1+clic);
+    	addIngtoComboBox(comboBox);
     	addIngtoArray(comboBox.getValue());
     }
     
-    public void addIngtoArray(Ingredient ing) {
+    public void addIngtoArray(String ing) {
     	arrayIng.add(ing);
     }
     
@@ -887,6 +950,7 @@ public class LaCasaDoradaGUI {
         stage.setTitle("Añadir Producto");
         stage.setScene(new Scene(RegisterPane));  
         addPTypetoComboBox();
+        addIngtoComboBox(cbIngredients);
         txtPriceProd.setVisible(false);
         txtPriceProd1.setVisible(false);
         txtPriceProd2.setVisible(false);
@@ -897,6 +961,12 @@ public class LaCasaDoradaGUI {
     public void addPTypetoComboBox(){
         for(int i=0;i<LaCD.getpType().size();i++){
         	cbTypeProd.getItems().add(LaCD.getpType().get(i).getName());
+        }
+    }
+    
+    public void addIngtoComboBox(ComboBox<String> x){
+        for(int i=0;i<LaCD.getIngredients().size();i++){
+        	x.getItems().add(LaCD.getIngredients().get(i).getName());
         }
     }
 
