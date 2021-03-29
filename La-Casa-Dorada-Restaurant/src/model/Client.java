@@ -5,11 +5,11 @@ public class Client extends Object{
 	
 	private String lastName;
 	private String address;
-	private int id;
-	private int phone;
+	private String id;
+	private String phone;
 	private String comments;
 
-	public Client(String name, Availability avl, String ln, String a, int id, int p, String com) {
+	public Client(String name, Availability avl, String ln, String a, String id, String p, String com) {
 		super(name, avl);
 		this.lastName = ln;
 		this.address = a;
@@ -34,19 +34,19 @@ public class Client extends Object{
 		this.address = address;
 	}
 
-	public int getId() {
+	public String getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 
-	public int getPhone() {
+	public String getPhone() {
 		return phone;
 	}
 
-	public void setPhone(int phone) {
+	public void setPhone(String phone) {
 		this.phone = phone;
 	}
 

@@ -420,6 +420,32 @@ public class LaCasaDoradaGUI {
     
     //Menu Methods
     @FXML
+    void loadClientList(ActionEvent event) throws IOException {
+    	FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("clientList.fxml"));
+    	fxmlLoader.setController(this);
+    	Parent listPane = fxmlLoader.load();
+    	
+    	menuListPane.setCenter(listPane);
+    	initializeClientTableView();
+    }
+    
+    public void initializeClientTableView() {
+    	ObservableList<Client> observableList;
+    	observableList = FXCollections.observableArrayList(LaCD.getClients());
+    	
+    	tvClientList.setItems(observableList);
+    	tcNameClient.setCellValueFactory(new PropertyValueFactory<Client,String>("name"));
+    	tcLastnameClient.setCellValueFactory(new PropertyValueFactory<Client,String>("lastName"));
+    	tcIDClient.setCellValueFactory(new PropertyValueFactory<Client,String>("id"));
+    	tcAddressClient.setCellValueFactory(new PropertyValueFactory<Client,String>("address"));
+    	tcPhoneClient.setCellValueFactory(new PropertyValueFactory<Client,String>("phone"));   	
+    	tcCommentsClient.setCellValueFactory(new PropertyValueFactory<Client,String>("comments"));
+    	tcAvailabilityClient.setCellValueFactory(new PropertyValueFactory<Client,String>("availability")); 
+    	
+    	tvClientList.setEditable(true);
+    }
+    
+    @FXML
     public void loadProductList(ActionEvent event) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("productList.fxml"));
     	fxmlLoader.setController(this);
@@ -619,6 +645,39 @@ public class LaCasaDoradaGUI {
     	registerPane.getChildren().clear();
     	registerPane.setTop(LogInPane);
     }
+    
+    //Client Methods
+    @FXML
+    public void addClient(ActionEvent event) {
+    	if(txtNameCli.getText().isEmpty() || txtLastNameCli.getText().isEmpty() || txtIDCli.getText().isEmpty() || txtAddressCli.getText().isEmpty() || txtPhoneCli.getText().isEmpty() || txACommentsCli.getText().isEmpty()) {
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("Error");
+			alert.setHeaderText("Por favor llene todos los campos");
+			alert.setContentText(null);
+			alert.showAndWait();
+		}else {
+			boolean found = false;
+    		for(int i=0; i<LaCD.getClients().size() && !found; i++) {
+    			if(LaCD.getClients().get(i).getId().equals(txtIDCli.getText())) {
+    				Alert alert = new Alert(AlertType.ERROR);
+	    			alert.setTitle("El cliente ya ha sido añadido antes");
+	    			alert.setHeaderText("Ya existe un cliente con el mismo ID");
+	    			alert.setContentText(null);
+	    			alert.showAndWait();
+	    			found = true;
+    			}
+    		}
+    		if(found==false) {
+    			LaCD.addClient(txtNameCli.getText(), txtLastNameCli.getText(), txtAddressCli.getText(), txtIDCli.getText(), txtPhoneCli.getText(), txACommentsCli.getText());
+               	Alert alert = new Alert(AlertType.INFORMATION);
+        		alert.setTitle("Cliente añadido");
+        		alert.setHeaderText(null);
+        		alert.setContentText("Cliente añadido exitosamente");
+        		alert.showAndWait();
+    		}
+		}
+    }
+
     
     //Employee Methods
     @FXML
@@ -936,7 +995,29 @@ public class LaCasaDoradaGUI {
     
     @FXML
     public void deleteIng(ActionEvent event) {
-    	
+    	if(LaCD.searchIngInProduct(tvIngredientList.getSelectionModel().getSelectedItem().getName())) {
+    		Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("El ingrediente "+tvIngredientList.getSelectionModel().getSelectedItem().getName()+" no puede ser eliminado");
+			alert.setHeaderText("Hay por lo menos un producto que está asociado al ingrediente");
+			alert.setContentText(null);
+			alert.showAndWait();
+    	}else {
+    		Alert alert = new Alert(AlertType.CONFIRMATION);
+        	alert.setTitle("Confirmación");
+        	alert.setHeaderText(null);
+        	alert.setContentText("Esta seguro de eliminar el ingrediente "+tvIngredientList.getSelectionModel().getSelectedItem().getName()+"?");
+        	
+        	Optional<ButtonType> result = alert.showAndWait();
+        	if (result.get() == ButtonType.OK){
+        		if(LaCD.deleteIngredient(tvIngredientList.getSelectionModel().getSelectedItem().getName())) {
+            		Alert alert1 = new Alert(AlertType.INFORMATION);
+            		alert1.setTitle("Ingrediente eliminado");
+            		alert1.setHeaderText(null);
+            		alert1.setContentText("Ingrediente eliminado exitosamente");
+            		alert1.showAndWait();
+            	}
+        	}
+    	}
     }
 
     //ProductList Methods
@@ -977,12 +1058,34 @@ public class LaCasaDoradaGUI {
     
     @FXML
     public void deleteProduct(ActionEvent event) {
-
+    	if(LaCD.searchProductInOrder(tvProductList.getSelectionModel().getSelectedItem().getName())) {
+    		Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("El producto "+tvProductList.getSelectionModel().getSelectedItem().getName()+" no puede ser eliminado");
+			alert.setHeaderText("Hay por lo menos una orden que está asociada al producto");
+			alert.setContentText(null);
+			alert.showAndWait();
+    	}else {
+    		Alert alert = new Alert(AlertType.CONFIRMATION);
+        	alert.setTitle("Confirmación");
+        	alert.setHeaderText(null);
+        	alert.setContentText("Esta seguro de eliminar el producto "+tvProductList.getSelectionModel().getSelectedItem().getName()+"?");
+        	
+        	Optional<ButtonType> result = alert.showAndWait();
+        	if (result.get() == ButtonType.OK){
+        		if(LaCD.deleteProduct(tvProductList.getSelectionModel().getSelectedItem().getName())) {
+            		Alert alert1 = new Alert(AlertType.INFORMATION);
+            		alert1.setTitle("Producto eliminado");
+            		alert1.setHeaderText(null);
+            		alert1.setContentText("Producto eliminado exitosamente");
+            		alert1.showAndWait();
+            	}
+        	}
+    	}
     }
     
     //PTypeList Methods
     @FXML
-    void addOtherPT(ActionEvent event) throws IOException {
+    public void addOtherPT(ActionEvent event) throws IOException {
     	FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("registerPType.fxml"));
     	fxmlLoader.setController(this);
     	Parent RegisterPane = fxmlLoader.load();
@@ -994,15 +1097,81 @@ public class LaCasaDoradaGUI {
     }
 
     @FXML
-    void deletePT(ActionEvent event) {
-
+    public void deletePT(ActionEvent event) {
+    	if(LaCD.searchPTypeInProduct(tvPTypeList.getSelectionModel().getSelectedItem().getName())) {
+    		Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("El tipo de producto "+tvPTypeList.getSelectionModel().getSelectedItem().getName()+" no puede ser eliminado");
+			alert.setHeaderText("Hay por lo menos un producto que está asociada él");
+			alert.setContentText(null);
+			alert.showAndWait();
+    	}else {
+    		Alert alert = new Alert(AlertType.CONFIRMATION);
+        	alert.setTitle("Confirmación");
+        	alert.setHeaderText(null);
+        	alert.setContentText("Esta seguro de eliminar el tipo de producto "+tvPTypeList.getSelectionModel().getSelectedItem().getName()+"?");
+        	
+        	Optional<ButtonType> result = alert.showAndWait();
+        	if (result.get() == ButtonType.OK){
+        		if(LaCD.deletePType(tvPTypeList.getSelectionModel().getSelectedItem().getName())) {
+            		Alert alert1 = new Alert(AlertType.INFORMATION);
+            		alert1.setTitle("Tipo de producto eliminado");
+            		alert1.setHeaderText(null);
+            		alert1.setContentText("Tipo de producto eliminado exitosamente");
+            		alert1.showAndWait();
+            	}
+        	}
+    	}
     }
 
     @FXML
-    void updateListPT(ActionEvent event) {
+    public void updateListPT(ActionEvent event) {
     	initializePTypeTableView();
     }
     
-    
+    //ClientList
+    @FXML
+    public void addOtherClient(ActionEvent event) throws IOException {
+    	FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("registerClient.fxml"));
+    	fxmlLoader.setController(this);
+    	Parent RegisterPane = fxmlLoader.load();
+    	
+    	Stage stage = new Stage();
+        stage.setTitle("Añadir Cliente");
+        stage.setScene(new Scene(RegisterPane));
+        stage.show();
+    }
+
+    @FXML
+    public void deleteClient(ActionEvent event) {
+    	if(LaCD.searchClientInOrder(tvClientList.getSelectionModel().getSelectedItem().getId())) {
+    		Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("El cliente "+tvClientList.getSelectionModel().getSelectedItem().getName()+" no puede ser eliminado");
+			alert.setHeaderText("Hay por lo menos una orden que está asociada él");
+			alert.setContentText(null);
+			alert.showAndWait();
+    	}else {
+    		Alert alert = new Alert(AlertType.CONFIRMATION);
+        	alert.setTitle("Confirmación");
+        	alert.setHeaderText(null);
+        	alert.setContentText("Esta seguro de eliminar el cliente "+tvClientList.getSelectionModel().getSelectedItem().getName()+"?");
+        	
+        	Optional<ButtonType> result = alert.showAndWait();
+        	if (result.get() == ButtonType.OK){
+        		if(LaCD.deleteClient(tvClientList.getSelectionModel().getSelectedItem().getId())) {
+            		Alert alert1 = new Alert(AlertType.INFORMATION);
+            		alert1.setTitle("Cliente eliminado");
+            		alert1.setHeaderText(null);
+            		alert1.setContentText("Cliente eliminado exitosamente");
+            		alert1.showAndWait();
+            	}
+        	}
+    	}
+    }
+
+    @FXML
+    public void updateListClient(ActionEvent event) {
+    	initializeClientTableView();
+    }
+
     
 }

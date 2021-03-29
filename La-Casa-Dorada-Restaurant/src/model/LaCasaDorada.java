@@ -45,6 +45,22 @@ public class LaCasaDorada {
 		pType.add(productType);
 	}
 	
+	public void addClient(String name, String ln, String a, String id, String p, String com) {
+		Client client = new Client(name, Availability.HABILITADO, ln, a, id, p, com);
+		clients.add(client);
+	}
+	
+	public boolean deleteClient(String id) {
+		boolean deleted = false;
+		for(int i=0; i<clients.size() && !deleted; i++) {
+			if(clients.get(i).getId().equals(id)) {
+				clients.remove(i);
+				deleted = true;
+			}
+		}
+		return deleted;
+	}
+	
 	public boolean deleteUser(String id) {
 		boolean deleted = false;
 		for(int i=0; i<users.size() && !deleted; i++) {
@@ -100,9 +116,6 @@ public class LaCasaDorada {
 		return deleted;
 	}
 	
-	
-	
-	
 	public boolean searchUser(String id) {
 		boolean found = false;
 		for(int i=0; i<users.size() && !found; i++) {
@@ -113,38 +126,48 @@ public class LaCasaDorada {
 		return found;
 	}
 	
-	
-	
-	
-	
-	
-	
-	
-	public String RemoveProduct(String name) {
-		String message = "";
-		if (products.contains(name)) {
-			products.remove(products.indexOf(name));
-			message = "Product removed";
+	public boolean searchIngInProduct(String name) {
+		boolean found = false;
+		for(int i=0; i<products.size(); i++) {
+			for(int j=0; i<products.get(i).getIngredients().size() && !found; j++) {
+				if(products.get(i).getIngredients().get(j).equals(name)) {
+					found = true;
+				}
+			}
 		}
-		return message;
+		return found;
 	}
 	
-	public String RemoveIngredient(String name) {
-		String message = "";
-		if (ingredients.contains(name)) {
-			ingredients.remove(ingredients.indexOf(name));
-			message = "Ingredient removed";
+	public boolean searchProductInOrder(String name) {
+		boolean found = false;
+		for(int i=0; i<orders.size(); i++) {
+			for(int j=0; i<orders.get(i).getProducts().size() && !found; j++) {
+				if(orders.get(i).getProducts().get(j).getName().equals(name)) {
+					found = true;
+				}
+			}
 		}
-		return message;
+		return found;
 	}
 	
-	public String RemoveProductType(String name) {
-		String message = "";
-		if (pType.contains(name)) {
-			pType.remove(pType.indexOf(name));
-			message = "Type of product removed";
+	public boolean searchPTypeInProduct(String name) {
+		boolean found = false;
+		for(int i=0; i<products.size(); i++) {
+			if(products.get(i).getType().equals(name)) {
+				found = true;
+			}
 		}
-		return message;
+		return found;
+	}
+	
+	public boolean searchClientInOrder(String id) {
+		boolean found = false;
+		for(int i=0; i<orders.size(); i++) {
+			if(orders.get(i).getClient().getId().equals(id)) {
+				found = true;
+			}
+		}
+		return found;
 	}
 
 	public ArrayList<User> getUsers() {
@@ -165,6 +188,14 @@ public class LaCasaDorada {
 
 	public ArrayList<ProductType> getpType() {
 		return pType;
+	}
+
+	public ArrayList<Client> getClients() {
+		return clients;
+	}
+
+	public ArrayList<Order> getOrders() {
+		return orders;
 	}
 	
 	
