@@ -1,6 +1,7 @@
 package ui;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Optional;
 
 import javafx.collections.FXCollections;
@@ -275,10 +276,14 @@ public class LaCasaDoradaGUI {
     
     private LaCasaDorada LaCD;
     private int clic;
+    private ArrayList<Ingredient> arrayIng;
+    private ArrayList<String> arraySize;
 
     public LaCasaDoradaGUI(LaCasaDorada CD) {
 		LaCD = CD;
 		clic = 0;
+		arrayIng = new ArrayList<Ingredient>();
+		arraySize = new ArrayList<String>();
 	}
 
 	public void initialize() {
@@ -582,33 +587,43 @@ public class LaCasaDoradaGUI {
     //Product Methods
     @FXML
     public void addProduct(ActionEvent event) {
-//    	if(txtNameProd.getText().isEmpty() || cbTypeProd.getValue().equals("") || cbIngredients.getValue().equals("") && chbSize1.isFocused()==false && chbSize2.isFocused()==false && chbSize3.isFocused()==false || txtPriceProd.getText().isEmpty() || txtPriceProd1.getText().isEmpty() || txtPriceProd2.getText().isEmpty()) {
-//			Alert alert = new Alert(AlertType.ERROR);
-//			alert.setTitle("Error");
-//			alert.setHeaderText("Por favor llene todos los campos");
-//			alert.setContentText(null);
-//			alert.showAndWait();
-//		}else {
-//			boolean found = false;
-//    		for(int i=0; i<LaCD.getProducts().size() && !found; i++) {
-//    			if(LaCD.getProducts().get(i).getName().equals(txtNameProd.getText())) {
-//    				Alert alert = new Alert(AlertType.ERROR);
-//	    			alert.setTitle("El Producto ya ha sido añadido antes");
-//	    			alert.setHeaderText("Ya existe un producto con el mismo nombre");
-//	    			alert.setContentText(null);
-//	    			alert.showAndWait();
-//	    			found = true;
-//    			}
-//    		}
-//    		if(found==false) {
-//    			LaCD.getProducts(txtNameProd.getText(), cbTypeProd.getValue(), ArrayList<Ingredient> ingredients, Size size, ArrayList<Integer> prices);
-//               	Alert alert = new Alert(AlertType.INFORMATION);
-//        		alert.setTitle("Producto añadido");
-//        		alert.setHeaderText(null);
-//        		alert.setContentText("Producto añadido exitosamente");
-//        		alert.showAndWait();
-//    		}
-//		}
+    	if(txtNameProd.getText().isEmpty() || cbTypeProd.getValue().equals("") || cbIngredients.getValue().equals("") && chbSize1.isFocused()==false && chbSize2.isFocused()==false && chbSize3.isFocused()==false || txtPriceProd.getText().isEmpty() || txtPriceProd1.getText().isEmpty() || txtPriceProd2.getText().isEmpty()) {
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("Error");
+			alert.setHeaderText("Por favor llene todos los campos");
+			alert.setContentText(null);
+			alert.showAndWait();
+		}else {
+			boolean found = false;
+    		for(int i=0; i<LaCD.getProducts().size() && !found; i++) {
+    			if(LaCD.getProducts().get(i).getName().equals(txtNameProd.getText())) {
+    				Alert alert = new Alert(AlertType.ERROR);
+	    			alert.setTitle("El Producto ya ha sido añadido antes");
+	    			alert.setHeaderText("Ya existe un producto con el mismo nombre");
+	    			alert.setContentText(null);
+	    			alert.showAndWait();
+	    			found = true;
+    			}
+    		}
+    		if(found==false) {
+    			addIngtoArray(cbIngredients.getValue());
+    			if(chbSize1.isFocused()==true) {
+    				arraySize.add(chbSize1.getText());
+    			}
+    			if(chbSize2.isFocused()==true) {
+    				arraySize.add(chbSize2.getText());
+    			}
+    			if(chbSize3.isFocused()==true) {
+    				arraySize.add(chbSize3.getText());
+    			}
+    			LaCD.getProducts(txtNameProd.getText(), cbTypeProd.getValue(), arrayIng, arraySize, prices);
+               	Alert alert = new Alert(AlertType.INFORMATION);
+        		alert.setTitle("Producto añadido");
+        		alert.setHeaderText(null);
+        		alert.setContentText("Producto añadido exitosamente");
+        		alert.showAndWait();
+    		}
+		}
     }
     
     @FXML
@@ -621,22 +636,29 @@ public class LaCasaDoradaGUI {
     	ComboBox<Ingredient> comboBox = new ComboBox<Ingredient>();
     	comboBox.setPrefWidth(170);
     	gPaneProduct.add(comboBox, 3, 1+clic);
+    	addIngtoArray(comboBox.getValue());
+    }
+    
+    public void addIngtoArray(Ingredient ing) {
+    	arrayIng.add(ing);
+    }
+    
+    @FXML
+    public void addTxtPrice1(ActionEvent event) {
+    	
     }
 
     @FXML
-    void addTxtPrice2(ActionEvent event) {
-
+    public void addTxtPrice2(ActionEvent event) {
+    	
     }
 
     @FXML
-    void addTxtPrice3(ActionEvent event) {
-
+    public void addTxtPrice3(ActionEvent event) {
+    	
     }
 
-    @FXML
-    void changeSize(ActionEvent event) {
-
-    }
+    
     
     
 	//EmployeeList Methods

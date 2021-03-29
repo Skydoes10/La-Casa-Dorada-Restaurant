@@ -96,7 +96,7 @@
                   <Font name="System Bold" size="18.0" />
                </font>
             </Label>
-            <ComboBox fx:id="cbTypeProd" onAction="#changeSize" prefWidth="170.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <ComboBox fx:id="cbTypeProd" prefWidth="170.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
             <CheckBox fx:id="chbSize3" mnemonicParsing="false" onAction="#addTxtPrice3" text="Para 4" GridPane.columnIndex="1" GridPane.rowIndex="3">
                <GridPane.margin>
                   <Insets left="137.0" />
@@ -107,7 +107,7 @@
                   <Insets left="75.0" />
                </GridPane.margin>
             </CheckBox>
-            <CheckBox fx:id="chbSize1" mnemonicParsing="false" text="Personal" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <CheckBox fx:id="chbSize1" mnemonicParsing="false" onAction="#addTxtPrice1" text="Personal" GridPane.columnIndex="1" GridPane.rowIndex="3" />
             <ComboBox fx:id="cbIngredients" prefWidth="170.0" GridPane.columnIndex="3" GridPane.rowIndex="1" />
             <Button fx:id="btnAddIngredient" mnemonicParsing="false" onAction="#addIngredientToProd" text="+" GridPane.columnIndex="3" GridPane.rowIndex="1">
                <GridPane.margin>

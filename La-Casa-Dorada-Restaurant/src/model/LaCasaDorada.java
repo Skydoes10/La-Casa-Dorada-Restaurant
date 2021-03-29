@@ -26,12 +26,12 @@ public class LaCasaDorada {
 	}
 	
 	public void addEmployee(String name, String lastname, String id) {
-		Employee employee = new Employee(name, lastname, id, Availability.HABILITADO);
+		Employee employee = new Employee(name, Availability.HABILITADO, id, lastname);
 		employees.add(employee);
 	}
 	
 	public void addProduct(String name, ProductType type, ArrayList<Ingredient> ingredients, Size size, ArrayList<Integer> prices) {
-		Product product = new Product(String name, Availability availability, ProductType type, ArrayList<Ingredient> ingredients, Size size, ArrayList<Integer> prices);
+		Product product = new Product(name, Availability.HABILITADO, type, ingredients, size, prices);
 		products.add(product);
 	}
 	
