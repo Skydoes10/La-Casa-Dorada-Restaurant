@@ -30,6 +30,7 @@ import model.Ingredient;
 import model.LaCasaDorada;
 import model.Product;
 import model.ProductType;
+import model.Size;
 import model.User;
 
 public class LaCasaDoradaGUI {
@@ -121,7 +122,7 @@ public class LaCasaDoradaGUI {
     private Button btnAddProduct;
 
     @FXML
-    private ComboBox<ProductType> cbTypeProd;
+    private ComboBox<String> cbTypeProd;
 
     @FXML
     private CheckBox chbSize3;
@@ -141,6 +142,16 @@ public class LaCasaDoradaGUI {
     @FXML
     private GridPane gPaneProduct;
     
+    //RegisterPType
+    @FXML
+    private BorderPane addPTypePane;
+
+    @FXML
+    private TextField txtNamePType;
+
+    @FXML
+    private Button btnCreatePType;
+    
     //Menu
     @FXML
     private BorderPane menuPane;
@@ -153,6 +164,9 @@ public class LaCasaDoradaGUI {
 
     @FXML
     private Button btnProducts;
+    
+    @FXML
+    private Button btnPType;
 
     @FXML
     private Button btnIngredients;
@@ -272,18 +286,38 @@ public class LaCasaDoradaGUI {
     @FXML
     private Button btnProdpdateList;
     
-    
+    //PTypeList
+    @FXML
+    private TableView<ProductType> tvPTypeList;
+
+    @FXML
+    private TableColumn<ProductType, String> tcNamePT;
+
+    @FXML
+    private TableColumn<ProductType, String> tcAvailabilityPT;
+
+    @FXML
+    private Button btnAddPT;
+
+    @FXML
+    private Button btnDeletePT;
+
+    @FXML
+    private Button btnUpdatePTList;
+
     
     private LaCasaDorada LaCD;
     private int clic;
     private ArrayList<Ingredient> arrayIng;
-    private ArrayList<String> arraySize;
+    private ArrayList<Size> arraySize;
+    private ArrayList<Integer> arrayPrice;
 
     public LaCasaDoradaGUI(LaCasaDorada CD) {
 		LaCD = CD;
 		clic = 0;
 		arrayIng = new ArrayList<Ingredient>();
-		arraySize = new ArrayList<String>();
+		arraySize = new ArrayList<Size>();
+		arrayPrice = new ArrayList<Integer>();
 	}
 
 	public void initialize() {
@@ -346,6 +380,27 @@ public class LaCasaDoradaGUI {
     	tcAvailabilityProd.setCellValueFactory(new PropertyValueFactory<Product,String>("availability"));
     	
     	tvProductList.setEditable(true);
+    }
+    
+    @FXML
+    void loadPTypeList(ActionEvent event) throws IOException {
+    	FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("pTypeList.fxml"));
+    	fxmlLoader.setController(this);
+    	Parent listPane = fxmlLoader.load();
+    	
+    	menuListPane.setCenter(listPane);
+    	initializePTypeTableView();
+    }
+    
+    public void initializePTypeTableView() {
+    	ObservableList<ProductType> observableList;
+    	observableList = FXCollections.observableArrayList(LaCD.getpType());
+    	
+    	tvPTypeList.setItems(observableList);
+    	tcNamePT.setCellValueFactory(new PropertyValueFactory<ProductType,String>("name"));
+    	tcAvailabilityPT.setCellValueFactory(new PropertyValueFactory<ProductType,String>("availability"));
+    	
+    	tvPTypeList.setEditable(true);
     }
     
     @FXML
@@ -587,7 +642,7 @@ public class LaCasaDoradaGUI {
     //Product Methods
     @FXML
     public void addProduct(ActionEvent event) {
-    	if(txtNameProd.getText().isEmpty() || cbTypeProd.getValue().equals("") || cbIngredients.getValue().equals("") && chbSize1.isFocused()==false && chbSize2.isFocused()==false && chbSize3.isFocused()==false || txtPriceProd.getText().isEmpty() || txtPriceProd1.getText().isEmpty() || txtPriceProd2.getText().isEmpty()) {
+    	if(txtNameProd.getText().isEmpty() || cbTypeProd.getValue().equals(" ") || cbIngredients.getValue().equals(" ") && chbSize1.isFocused()==false && chbSize2.isFocused()==false && chbSize3.isFocused()==false || txtPriceProd.getText().isEmpty() || txtPriceProd1.getText().isEmpty() || txtPriceProd2.getText().isEmpty()) {
 			Alert alert = new Alert(AlertType.ERROR);
 			alert.setTitle("Error");
 			alert.setHeaderText("Por favor llene todos los campos");
@@ -608,15 +663,15 @@ public class LaCasaDoradaGUI {
     		if(found==false) {
     			addIngtoArray(cbIngredients.getValue());
     			if(chbSize1.isFocused()==true) {
-    				arraySize.add(chbSize1.getText());
+    				arraySize.add(Size.PEQUEÑA);
     			}
     			if(chbSize2.isFocused()==true) {
-    				arraySize.add(chbSize2.getText());
+    				arraySize.add(Size.MEDIANA);
     			}
     			if(chbSize3.isFocused()==true) {
-    				arraySize.add(chbSize3.getText());
+    				arraySize.add(Size.GRANDE);
     			}
-    			LaCD.getProducts(txtNameProd.getText(), cbTypeProd.getValue(), arrayIng, arraySize, prices);
+    			LaCD.addProduct(txtNameProd.getText(), cbTypeProd.getValue(), arrayIng, arraySize, arrayPrice);
                	Alert alert = new Alert(AlertType.INFORMATION);
         		alert.setTitle("Producto añadido");
         		alert.setHeaderText(null);
@@ -645,19 +700,80 @@ public class LaCasaDoradaGUI {
     
     @FXML
     public void addTxtPrice1(ActionEvent event) {
-    	
+    	if(chbSize1.isFocused()) {
+    		txtPriceProd.setVisible(true);
+    	}
+    	if(chbSize1.isFocused()==false){
+    		txtPriceProd.setVisible(false);
+    	}
     }
 
     @FXML
     public void addTxtPrice2(ActionEvent event) {
-    	
+    	if(chbSize2.isFocused()) {
+    		txtPriceProd1.setVisible(true);
+    	}
+    	if(chbSize2.isFocused()==false){
+    		txtPriceProd1.setVisible(false);
+    	}
     }
 
     @FXML
     public void addTxtPrice3(ActionEvent event) {
-    	
+    	if(chbSize3.isFocused()) {
+    		txtPriceProd2.setVisible(true);
+    	}
+    	if(chbSize3.isFocused()==false){
+    		txtPriceProd2.setVisible(false);
+    	}
     }
-
+    
+    public void addPricetoArray(Ingredient ing) {
+    	if(txtPriceProd.isVisible()) {
+    		int price = Integer.parseInt(txtPriceProd.getText());
+    		arrayPrice.add(price);
+    	}
+    	if(txtPriceProd1.isVisible()) {
+    		int price = Integer.parseInt(txtPriceProd1.getText());
+    		arrayPrice.add(price);
+    	}
+    	if(txtPriceProd2.isVisible()) {
+    		int price = Integer.parseInt(txtPriceProd2.getText());
+    		arrayPrice.add(price);
+    	}
+    }
+    
+    //PType Methods
+    @FXML
+    public void addPType(ActionEvent event) {
+    	if(txtNamePType.getText().isEmpty()) {
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("Error");
+			alert.setHeaderText("Por favor llene todos los campos");
+			alert.setContentText(null);
+			alert.showAndWait();
+		}else {
+			boolean found = false;
+    		for(int i=0; i<LaCD.getpType().size() && !found; i++) {
+    			if(LaCD.getpType().get(i).getName().equals(txtNamePType.getText())) {
+    				Alert alert = new Alert(AlertType.ERROR);
+	    			alert.setTitle("El tipo de producto ya ha sido añadido antes");
+	    			alert.setHeaderText("Ya existe un tipo de producto con el mismo nombre");
+	    			alert.setContentText(null);
+	    			alert.showAndWait();
+	    			found = true;
+    			}
+    		}
+    		if(found==false) {
+    			LaCD.addProductType(txtNamePType.getText());
+               	Alert alert = new Alert(AlertType.INFORMATION);
+        		alert.setTitle("Tipo de producto añadido");
+        		alert.setHeaderText(null);
+        		alert.setContentText("Tipo de producto añadido exitosamente");
+        		alert.showAndWait();
+    		}
+		}
+    }
     
     
     
@@ -770,7 +886,18 @@ public class LaCasaDoradaGUI {
     	Stage stage = new Stage();
         stage.setTitle("Añadir Producto");
         stage.setScene(new Scene(RegisterPane));  
+        addPTypetoComboBox();
+        txtPriceProd.setVisible(false);
+        txtPriceProd1.setVisible(false);
+        txtPriceProd2.setVisible(false);
+        
         stage.show();
+    }
+    
+    public void addPTypetoComboBox(){
+        for(int i=0;i<LaCD.getpType().size();i++){
+        	cbTypeProd.getItems().add(LaCD.getpType().get(i).getName());
+        }
     }
 
     @FXML
@@ -782,4 +909,30 @@ public class LaCasaDoradaGUI {
     public void deleteProduct(ActionEvent event) {
 
     }
+    
+    //PTypeList Methods
+    @FXML
+    void addOtherPT(ActionEvent event) throws IOException {
+    	FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("registerPType.fxml"));
+    	fxmlLoader.setController(this);
+    	Parent RegisterPane = fxmlLoader.load();
+    	
+    	Stage stage = new Stage();
+        stage.setTitle("Añadir Tipo de producto");
+        stage.setScene(new Scene(RegisterPane));
+        stage.show();
+    }
+
+    @FXML
+    void deletePT(ActionEvent event) {
+
+    }
+
+    @FXML
+    void updateListPT(ActionEvent event) {
+    	initializePTypeTableView();
+    }
+    
+    
+    
 }

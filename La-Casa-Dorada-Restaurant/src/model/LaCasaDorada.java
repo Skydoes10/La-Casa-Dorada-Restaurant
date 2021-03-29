@@ -30,7 +30,7 @@ public class LaCasaDorada {
 		employees.add(employee);
 	}
 	
-	public void addProduct(String name, ProductType type, ArrayList<Ingredient> ingredients, Size size, ArrayList<Integer> prices) {
+	public void addProduct(String name, String type, ArrayList<Ingredient> ingredients, ArrayList<Size> size, ArrayList<Integer> prices) {
 		Product product = new Product(name, Availability.HABILITADO, type, ingredients, size, prices);
 		products.add(product);
 	}
@@ -72,6 +72,17 @@ public class LaCasaDorada {
 		for(int i=0; i<ingredients.size() && !deleted; i++) {
 			if(ingredients.get(i).getName().equals(name)) {
 				ingredients.remove(i);
+				deleted = true;
+			}
+		}
+		return deleted;
+	}
+	
+	public boolean deleteProduct(String name) {
+		boolean deleted = false;
+		for(int i=0; i<products.size() && !deleted; i++) {
+			if(products.get(i).getName().equals(name)) {
+				products.remove(i);
 				deleted = true;
 			}
 		}

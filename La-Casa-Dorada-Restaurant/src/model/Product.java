@@ -4,24 +4,24 @@ import java.util.ArrayList;
 
 public class Product extends Object{
 	
-	private ProductType type;
+	private String type;
 	private ArrayList<Ingredient> ingredients;
-	private Size size;
+	private ArrayList<Size> size;
 	private ArrayList<Integer> prices;
 	
-	public Product(String name, Availability availability, ProductType type, ArrayList<Ingredient> ingredients, Size size, ArrayList<Integer> prices) {
+	public Product(String name, Availability availability, String type, ArrayList<Ingredient> ingredients, ArrayList<Size> size, ArrayList<Integer> prices) {
 		super(name, availability);
 		this.type = type;
-		this.ingredients = ingredients;
-		this.size = size;
+		ingredients = new ArrayList<Ingredient>();
+		size = new ArrayList<Size>();
 		prices = new ArrayList<Integer>();
 	}
 
-	public ProductType getType() {
+	public String getType() {
 		return type;
 	}
 
-	public void setType(ProductType type) {
+	public void setType(String type) {
 		this.type = type;
 	}
 
@@ -33,11 +33,11 @@ public class Product extends Object{
 		this.ingredients = ingredients;
 	}
 
-	public Size getSize() {
+	public ArrayList<Size> getSize() {
 		return size;
 	}
 
-	public void setSize(Size size) {
+	public void setSize(ArrayList<Size> size) {
 		this.size = size;
 	}
 
