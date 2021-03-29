@@ -6,15 +6,15 @@ public class Product extends Object{
 	
 	private ProductType type;
 	private ArrayList<Ingredient> ingredients;
-	private String size;
-	private int price;
+	private Size size;
+	private ArrayList<Integer> prices;
 	
-	public Product(String name, Availability availability, ProductType type, ArrayList<Ingredient> ingredients, String size, int price) {
+	public Product(String name, Availability availability, ProductType type, ArrayList<Ingredient> ingredients, Size size, ArrayList<Integer> prices) {
 		super(name, availability);
 		this.type = type;
 		this.ingredients = ingredients;
 		this.size = size;
-		this.price = price;
+		prices = new ArrayList<Integer>();
 	}
 
 	public ProductType getType() {
@@ -33,21 +33,24 @@ public class Product extends Object{
 		this.ingredients = ingredients;
 	}
 
-	public String getSize() {
+	public Size getSize() {
 		return size;
 	}
 
-	public void setSize(String size) {
+	public void setSize(Size size) {
 		this.size = size;
 	}
 
-	public int getPrice() {
-		return price;
+	public ArrayList<Integer> getPrices() {
+		return prices;
 	}
 
-	public void setPrice(int price) {
-		this.price = price;
+	public void setPrices(ArrayList<Integer> prices) {
+		this.prices = prices;
 	}
+
+	
+	
 	
 	
 }

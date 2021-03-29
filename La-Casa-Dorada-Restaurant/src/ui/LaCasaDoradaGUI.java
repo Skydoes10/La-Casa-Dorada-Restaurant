@@ -13,6 +13,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.CheckBox;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -24,6 +26,7 @@ import javafx.stage.Stage;
 import model.Employee;
 import model.Ingredient;
 import model.LaCasaDorada;
+import model.ProductType;
 import model.User;
 
 public class LaCasaDoradaGUI {
@@ -94,6 +97,37 @@ public class LaCasaDoradaGUI {
 
     @FXML
     private Button btnCreateIng;
+    
+    //RegisterIngredient
+    @FXML
+    private BorderPane registerProductPane;
+
+    @FXML
+    private TextField txtNameProd;
+
+    @FXML
+    private PasswordField txtPriceProd;
+
+    @FXML
+    private Button btnAddProduct;
+
+    @FXML
+    private ComboBox<ProductType> cbTypeProd;
+
+    @FXML
+    private CheckBox chbSize3;
+
+    @FXML
+    private CheckBox chbSize2;
+
+    @FXML
+    private CheckBox chbSize1;
+
+    @FXML
+    private ComboBox<Ingredient> cbIngredients;
+
+    @FXML
+    private Button btnAddIngredient;
     
     //Menu
     @FXML
@@ -478,7 +512,70 @@ public class LaCasaDoradaGUI {
     		}
 		}
     }
+    
+    @FXML
+    private BorderPane registerProductPane;
 
+    @FXML
+    private TextField txtNameProd;
+
+    @FXML
+    private PasswordField txtPriceProd;
+
+    @FXML
+    private Button btnAddProduct;
+
+    @FXML
+    private ComboBox<?> cbTypeProd;
+
+    @FXML
+    private CheckBox chbSize3;
+
+    @FXML
+    private CheckBox chbSize2;
+
+    @FXML
+    private CheckBox chbSize1;
+
+    @FXML
+    private ComboBox<?> cbIngredients;
+
+    @FXML
+    private Button btnAddIngredient;
+    
+    //Product Methods
+    @FXML
+    public void addProduct(ActionEvent event) {
+    	if(txtNameProd.getText().isEmpty() || cbTypeProd.getValue().equals("") || cbIngredients.getValue().equals("") && chbSize1.isFocused()==false && chbSize2.isFocused()==false && chbSize3.isFocused()==false) {
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("Error");
+			alert.setHeaderText("Por favor llene todos los campos");
+			alert.setContentText(null);
+			alert.showAndWait();
+		}else {
+			boolean found = false;
+    		for(int i=0; i<LaCD.getIngredients().size() && !found; i++) {
+    			if(LaCD.getIngredients().get(i).getName().equals(txtNameIng.getText())) {
+    				Alert alert = new Alert(AlertType.ERROR);
+	    			alert.setTitle("El Ingrediente ya ha sido añadido antes");
+	    			alert.setHeaderText("Ya existe un Ingrediente con el mismo nombre");
+	    			alert.setContentText(null);
+	    			alert.showAndWait();
+	    			found = true;
+    			}
+    		}
+    		if(found==false) {
+    			LaCD.addIngredient(txtNameIng.getText());
+               	Alert alert = new Alert(AlertType.INFORMATION);
+        		alert.setTitle("Ingrediente añadido");
+        		alert.setHeaderText(null);
+        		alert.setContentText("Ingrediente añadido exitosamente");
+        		alert.showAndWait();
+    		}
+		}
+    }
+    
+    
 	//EmployeeList Methods
     @FXML
     public void addOtherEmployee(ActionEvent event) throws IOException {
@@ -578,7 +675,7 @@ public class LaCasaDoradaGUI {
     	
     }
 
-    
+    //ProductList Methods
 
     
 }
