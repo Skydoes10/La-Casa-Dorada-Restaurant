@@ -9,7 +9,7 @@
       <VBox prefHeight="600.0" prefWidth="112.0" BorderPane.alignment="CENTER">
          <children>
             <Button fx:id="btnOrder" mnemonicParsing="false" prefHeight="36.0" prefWidth="104.0" style="-fx-background-color: transparent; -fx-border-color: white; -fx-border-width: 0px 0px 2px 0px;" text="Pedidos" />
-            <Button fx:id="btnProducts" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="104.0" style="-fx-background-color: transparent; -fx-border-color: white; -fx-border-width: 0px 0px 2px 0px;" text="Productos" />
+            <Button fx:id="btnProducts" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#loadProductList" prefHeight="36.0" prefWidth="104.0" style="-fx-background-color: transparent; -fx-border-color: white; -fx-border-width: 0px 0px 2px 0px;" text="Productos" />
             <Button fx:id="btnIngredients" layoutX="10.0" layoutY="46.0" mnemonicParsing="false" onAction="#loadIngredientsList" prefHeight="36.0" prefWidth="104.0" style="-fx-background-color: transparent; -fx-border-color: white; -fx-border-width: 0px 0px 2px 0px;" text="Ingredientes" />
             <Button fx:id="btnClients" layoutX="10.0" layoutY="82.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="104.0" style="-fx-background-color: transparent; -fx-border-color: white; -fx-border-width: 0px 0px 2px 0px;" text="Clientes" />
             <Button fx:id="btnEmployees" layoutX="10.0" layoutY="118.0" mnemonicParsing="false" onAction="#loadEmployeeList" prefHeight="36.0" prefWidth="104.0" style="-fx-background-color: transparent; -fx-border-color: white; -fx-border-width: 0px 0px 2px 0px;" text="Empleados" />

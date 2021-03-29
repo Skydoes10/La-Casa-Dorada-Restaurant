@@ -9,33 +9,33 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="600.0" prefWidth="888.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
    <center>
       <HBox prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
-            <TableView fx:id="tvUserList" prefHeight="600.0" prefWidth="804.0">
+            <TableView fx:id="tvProductList" prefHeight="600.0" prefWidth="804.0">
               <columns>
-                <TableColumn fx:id="tcName" prefWidth="100.0" text="Nombre" />
-                <TableColumn fx:id="tcLastname" prefWidth="100.0" text="Apellidos" />
-                  <TableColumn fx:id="tcID" prefWidth="100.0" text="ID" />
-                  <TableColumn fx:id="tcUsername" prefWidth="100.0" text="Usuario" />
-                  <TableColumn fx:id="tcPassword" prefWidth="100.0" text="Contraseña" />
-                  <TableColumn fx:id="tcAvailabilityU" prefWidth="100.0" text="Disponibilidad" />
+                <TableColumn fx:id="tcNameProd" prefWidth="120.0" text="Nombre" />
+                <TableColumn fx:id="tcTypeProduct" prefWidth="120.0" text="Tipo de Producto" />
+                  <TableColumn fx:id="tcSizeProduct" prefWidth="110.0" text="Tamaño" />
+                  <TableColumn fx:id="tcPriceProduct" prefWidth="150.0" text="Precio" />
+                  <TableColumn fx:id="tcIngOfProd" prefWidth="150.0" text="Ingredientes" />
+                  <TableColumn fx:id="tcAvailabilityProd" prefWidth="95.0" text="Disponibilidad" />
               </columns>
             </TableView>
             <VBox prefHeight="500.0" prefWidth="200.0">
                <children>
-                  <Button fx:id="btnAddUser" mnemonicParsing="false" onAction="#addOtherUser" prefHeight="38.0" prefWidth="142.0" text="Añadir" textFill="#05c939">
+                  <Button fx:id="btnAddProd" mnemonicParsing="false" onAction="#addOtherProduct" prefHeight="38.0" prefWidth="142.0" text="Añadir" textFill="#05c939">
                      <font>
                         <Font size="13.0" />
                      </font>
                   </Button>
-                  <Button fx:id="btnDeleteUser" layoutX="10.0" layoutY="48.0" mnemonicParsing="false" onAction="#deleteUser" prefHeight="38.0" prefWidth="142.0" text="Eliminar" textFill="#f81e1e">
+                  <Button fx:id="btnDeleteProduct" layoutX="10.0" layoutY="48.0" mnemonicParsing="false" onAction="#deleteProduct" prefHeight="38.0" prefWidth="142.0" text="Eliminar" textFill="#f81e1e">
                      <font>
                         <Font size="13.0" />
                      </font>
                   </Button>
-                  <Button fx:id="btnUpdateList" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#updateListU" prefHeight="38.0" prefWidth="142.0" text="Actualizar Lista" textFill="#0665c7">
+                  <Button fx:id="btnProdpdateList" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#updateListProd" prefHeight="38.0" prefWidth="142.0" text="Actualizar Lista" textFill="#0665c7">
                      <font>
                         <Font size="13.0" />
                      </font>

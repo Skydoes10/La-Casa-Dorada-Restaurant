@@ -22,10 +22,12 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import model.Employee;
 import model.Ingredient;
 import model.LaCasaDorada;
+import model.Product;
 import model.ProductType;
 import model.User;
 
@@ -98,7 +100,7 @@ public class LaCasaDoradaGUI {
     @FXML
     private Button btnCreateIng;
     
-    //RegisterIngredient
+    //RegisterProduct
     @FXML
     private BorderPane registerProductPane;
 
@@ -107,6 +109,12 @@ public class LaCasaDoradaGUI {
 
     @FXML
     private PasswordField txtPriceProd;
+    
+    @FXML
+    private PasswordField txtPriceProd1;
+
+    @FXML
+    private PasswordField txtPriceProd2;
 
     @FXML
     private Button btnAddProduct;
@@ -128,6 +136,9 @@ public class LaCasaDoradaGUI {
 
     @FXML
     private Button btnAddIngredient;
+    
+    @FXML
+    private GridPane gPaneProduct;
     
     //Menu
     @FXML
@@ -229,15 +240,45 @@ public class LaCasaDoradaGUI {
     @FXML
     private Button btnUpdateListIng;
     
-    
-    
+    //ProductList
+    @FXML
+    private TableView<Product> tvProductList;
+
+    @FXML
+    private TableColumn<Product, String> tcNameProd;
+
+    @FXML
+    private TableColumn<Product, String> tcTypeProduct;
+
+    @FXML
+    private TableColumn<Product, String> tcSizeProduct;
+
+    @FXML
+    private TableColumn<Product, String> tcPriceProduct;
+
+    @FXML
+    private TableColumn<Product, String> tcIngOfProd;
+
+    @FXML
+    private TableColumn<Product, String> tcAvailabilityProd;
+
+    @FXML
+    private Button btnAddProd;
+
+    @FXML
+    private Button btnDeleteProduct;
+
+    @FXML
+    private Button btnProdpdateList;
     
     
     
     private LaCasaDorada LaCD;
+    private int clic;
 
     public LaCasaDoradaGUI(LaCasaDorada CD) {
 		LaCD = CD;
+		clic = 0;
 	}
 
 	public void initialize() {
@@ -277,6 +318,31 @@ public class LaCasaDoradaGUI {
     }
     
     //Menu Methods
+    @FXML
+    public void loadProductList(ActionEvent event) throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("productList.fxml"));
+    	fxmlLoader.setController(this);
+    	Parent listPane = fxmlLoader.load();
+    	
+    	menuListPane.setCenter(listPane);
+    	initializeProductTableView();
+    }
+    
+    public void initializeProductTableView() {
+    	ObservableList<Product> observableList;
+    	observableList = FXCollections.observableArrayList(LaCD.getProducts());
+    	
+    	tvProductList.setItems(observableList);
+    	tcNameProd.setCellValueFactory(new PropertyValueFactory<Product,String>("name"));
+    	tcTypeProduct.setCellValueFactory(new PropertyValueFactory<Product,String>("type"));
+    	tcSizeProduct.setCellValueFactory(new PropertyValueFactory<Product,String>("size"));
+    	tcPriceProduct.setCellValueFactory(new PropertyValueFactory<Product,String>("prices"));
+    	tcIngOfProd.setCellValueFactory(new PropertyValueFactory<Product,String>("ingredients"));   	
+    	tcAvailabilityProd.setCellValueFactory(new PropertyValueFactory<Product,String>("availability"));
+    	
+    	tvProductList.setEditable(true);
+    }
+    
     @FXML
     public void loadIngredientsList(ActionEvent event) throws IOException {
     	FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("ingredientList.fxml"));
@@ -513,66 +579,63 @@ public class LaCasaDoradaGUI {
 		}
     }
     
-    @FXML
-    private BorderPane registerProductPane;
-
-    @FXML
-    private TextField txtNameProd;
-
-    @FXML
-    private PasswordField txtPriceProd;
-
-    @FXML
-    private Button btnAddProduct;
-
-    @FXML
-    private ComboBox<?> cbTypeProd;
-
-    @FXML
-    private CheckBox chbSize3;
-
-    @FXML
-    private CheckBox chbSize2;
-
-    @FXML
-    private CheckBox chbSize1;
-
-    @FXML
-    private ComboBox<?> cbIngredients;
-
-    @FXML
-    private Button btnAddIngredient;
-    
     //Product Methods
     @FXML
     public void addProduct(ActionEvent event) {
-    	if(txtNameProd.getText().isEmpty() || cbTypeProd.getValue().equals("") || cbIngredients.getValue().equals("") && chbSize1.isFocused()==false && chbSize2.isFocused()==false && chbSize3.isFocused()==false) {
-			Alert alert = new Alert(AlertType.ERROR);
-			alert.setTitle("Error");
-			alert.setHeaderText("Por favor llene todos los campos");
-			alert.setContentText(null);
-			alert.showAndWait();
-		}else {
-			boolean found = false;
-    		for(int i=0; i<LaCD.getIngredients().size() && !found; i++) {
-    			if(LaCD.getIngredients().get(i).getName().equals(txtNameIng.getText())) {
-    				Alert alert = new Alert(AlertType.ERROR);
-	    			alert.setTitle("El Ingrediente ya ha sido añadido antes");
-	    			alert.setHeaderText("Ya existe un Ingrediente con el mismo nombre");
-	    			alert.setContentText(null);
-	    			alert.showAndWait();
-	    			found = true;
-    			}
-    		}
-    		if(found==false) {
-    			LaCD.addIngredient(txtNameIng.getText());
-               	Alert alert = new Alert(AlertType.INFORMATION);
-        		alert.setTitle("Ingrediente añadido");
-        		alert.setHeaderText(null);
-        		alert.setContentText("Ingrediente añadido exitosamente");
-        		alert.showAndWait();
-    		}
-		}
+//    	if(txtNameProd.getText().isEmpty() || cbTypeProd.getValue().equals("") || cbIngredients.getValue().equals("") && chbSize1.isFocused()==false && chbSize2.isFocused()==false && chbSize3.isFocused()==false || txtPriceProd.getText().isEmpty() || txtPriceProd1.getText().isEmpty() || txtPriceProd2.getText().isEmpty()) {
+//			Alert alert = new Alert(AlertType.ERROR);
+//			alert.setTitle("Error");
+//			alert.setHeaderText("Por favor llene todos los campos");
+//			alert.setContentText(null);
+//			alert.showAndWait();
+//		}else {
+//			boolean found = false;
+//    		for(int i=0; i<LaCD.getProducts().size() && !found; i++) {
+//    			if(LaCD.getProducts().get(i).getName().equals(txtNameProd.getText())) {
+//    				Alert alert = new Alert(AlertType.ERROR);
+//	    			alert.setTitle("El Producto ya ha sido añadido antes");
+//	    			alert.setHeaderText("Ya existe un producto con el mismo nombre");
+//	    			alert.setContentText(null);
+//	    			alert.showAndWait();
+//	    			found = true;
+//    			}
+//    		}
+//    		if(found==false) {
+//    			LaCD.getProducts(txtNameProd.getText(), cbTypeProd.getValue(), ArrayList<Ingredient> ingredients, Size size, ArrayList<Integer> prices);
+//               	Alert alert = new Alert(AlertType.INFORMATION);
+//        		alert.setTitle("Producto añadido");
+//        		alert.setHeaderText(null);
+//        		alert.setContentText("Producto añadido exitosamente");
+//        		alert.showAndWait();
+//    		}
+//		}
+    }
+    
+    @FXML
+    public void addIngredientToProd(ActionEvent event) {
+    	clic++;
+    	addComboBox(clic);
+    }
+    
+    public void addComboBox(int clic) {
+    	ComboBox<Ingredient> comboBox = new ComboBox<Ingredient>();
+    	comboBox.setPrefWidth(170);
+    	gPaneProduct.add(comboBox, 3, 1+clic);
+    }
+
+    @FXML
+    void addTxtPrice2(ActionEvent event) {
+
+    }
+
+    @FXML
+    void addTxtPrice3(ActionEvent event) {
+
+    }
+
+    @FXML
+    void changeSize(ActionEvent event) {
+
     }
     
     
@@ -654,7 +717,7 @@ public class LaCasaDoradaGUI {
     
     //ingredientList Methods
     @FXML
-    void addOtherIng(ActionEvent event) throws IOException {
+    public void addOtherIng(ActionEvent event) throws IOException {
     	FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("registerIngredient.fxml"));
     	fxmlLoader.setController(this);
     	Parent RegisterPane = fxmlLoader.load();
@@ -666,16 +729,35 @@ public class LaCasaDoradaGUI {
     }
 
     @FXML
-    void updateListIng(ActionEvent event) {
+    public void updateListIng(ActionEvent event) {
     	initializeIngredientTableView();
     }
     
     @FXML
-    void deleteIng(ActionEvent event) {
+    public void deleteIng(ActionEvent event) {
     	
     }
 
     //ProductList Methods
+    @FXML
+    public void addOtherProduct(ActionEvent event) throws IOException {
+    	FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("registerProduct.fxml"));
+    	fxmlLoader.setController(this);
+    	Parent RegisterPane = fxmlLoader.load();
+    	
+    	Stage stage = new Stage();
+        stage.setTitle("Añadir Producto");
+        stage.setScene(new Scene(RegisterPane));  
+        stage.show();
+    }
 
+    @FXML
+    public void updateListProd(ActionEvent event) {
+    	initializeProductTableView();
+    }
     
+    @FXML
+    public void deleteProduct(ActionEvent event) {
+
+    }
 }
