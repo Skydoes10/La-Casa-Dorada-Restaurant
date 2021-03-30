@@ -12,7 +12,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
@@ -41,19 +40,10 @@ public class LaCasaDoradaGUI {
 
 	//LogIn
     @FXML
-    private BorderPane mainPanel;
-
-    @FXML
     private TextField txtUsername;
 
     @FXML
     private PasswordField txtPassword;
-
-    @FXML
-    private Button btnLogIn;
-
-    @FXML
-    private Button btnSignUp;
     
     //RegisterUser
     @FXML
@@ -73,17 +63,8 @@ public class LaCasaDoradaGUI {
 
     @FXML
     private PasswordField txtPassword2;
-
-    @FXML
-    private Button btnCreateAccount;
-    
-    @FXML
-    private Button btnBack;
     
     //RegisterEmployee
-    @FXML
-    private BorderPane addEmployeePane;
-
     @FXML
     private TextField txtNameE;
 
@@ -92,24 +73,12 @@ public class LaCasaDoradaGUI {
 
     @FXML
     private TextField txtIDE;
-
-    @FXML
-    private Button btnCreateEmployee;
     
     //RegisterIngredient
     @FXML
-    private BorderPane addIngredientPane;
-
-    @FXML
     private TextField txtNameIng;
-
-    @FXML
-    private Button btnCreateIng;
     
     //RegisterProduct
-    @FXML
-    private BorderPane registerProductPane;
-
     @FXML
     private TextField txtNameProd;
 
@@ -121,9 +90,6 @@ public class LaCasaDoradaGUI {
 
     @FXML
     private TextField txtPriceProd2;
-
-    @FXML
-    private Button btnAddProduct;
 
     @FXML
     private ComboBox<String> cbTypeProd;
@@ -139,27 +105,15 @@ public class LaCasaDoradaGUI {
 
     @FXML
     private ComboBox<String> cbIngredients;
-
-    @FXML
-    private Button btnAddIngredient;
     
     @FXML
     private GridPane gPaneProduct;
     
     //RegisterPType
     @FXML
-    private BorderPane addPTypePane;
-
-    @FXML
     private TextField txtNamePType;
-
-    @FXML
-    private Button btnCreatePType;
     
     //RegisterClient
-    @FXML
-    private BorderPane registerClientPane;
-
     @FXML
     private TextField txtNameCli;
 
@@ -173,9 +127,6 @@ public class LaCasaDoradaGUI {
     private TextField txtAddressCli;
 
     @FXML
-    private Button btnCreateClient;
-
-    @FXML
     private TextField txtPhoneCli;
 
     @FXML
@@ -183,31 +134,7 @@ public class LaCasaDoradaGUI {
     
     //Menu
     @FXML
-    private BorderPane menuPane;
-    
-    @FXML
     private BorderPane menuListPane;
-
-    @FXML
-    private Button btnOrder;
-
-    @FXML
-    private Button btnProducts;
-    
-    @FXML
-    private Button btnPType;
-
-    @FXML
-    private Button btnIngredients;
-
-    @FXML
-    private Button btnClients;
-
-    @FXML
-    private Button btnEmployees;
-
-    @FXML
-    private Button btnUsers;
     
     //UserList
     @FXML
@@ -230,18 +157,6 @@ public class LaCasaDoradaGUI {
     
     @FXML
     private TableColumn<User, String> tcAvailabilityU;
-
-    @FXML
-    private Button btnAddUser;
-    
-    @FXML
-    private Button btnUpdateList;
-    
-    @FXML
-    private Button btnDeleteUser;
-    
-    @FXML
-    private Button btnDisableU;
     
     //EmployeeList
     @FXML
@@ -259,18 +174,6 @@ public class LaCasaDoradaGUI {
     @FXML
     private TableColumn<Employee, String> tcAvailabilityE;
 
-    @FXML
-    private Button btnAddEmployee;
-
-    @FXML
-    private Button btnUpdateEList;
-    
-    @FXML
-    private Button btnDeleteEmployee;
-    
-    @FXML
-    private Button btnDisableEmp;
-
     //IngredientList
     @FXML
     private TableView<Ingredient> tvIngredientList;
@@ -280,18 +183,6 @@ public class LaCasaDoradaGUI {
 
     @FXML
     private TableColumn<Ingredient, String> tcAvailabilityIn;
-
-    @FXML
-    private Button btnAddIng;
-
-    @FXML
-    private Button btnDeleteIng;
-    
-    @FXML
-    private Button btnDisable;
-
-    @FXML
-    private Button btnUpdateListIng;
     
     //ProductList
     @FXML
@@ -314,18 +205,6 @@ public class LaCasaDoradaGUI {
 
     @FXML
     private TableColumn<Product, String> tcAvailabilityProd;
-
-    @FXML
-    private Button btnAddProd;
-
-    @FXML
-    private Button btnDeleteProduct;
-
-    @FXML
-    private Button btnProdpdateList;
-    
-    @FXML
-    private Button btnDisableProd;
     
     //PTypeList
     @FXML
@@ -336,18 +215,6 @@ public class LaCasaDoradaGUI {
 
     @FXML
     private TableColumn<ProductType, String> tcAvailabilityPT;
-
-    @FXML
-    private Button btnAddPT;
-
-    @FXML
-    private Button btnDeletePT;
-
-    @FXML
-    private Button btnUpdatePTList;
-    
-    @FXML
-    private Button btnDisablePT;
     
     //ClientList
     @FXML
@@ -374,18 +241,6 @@ public class LaCasaDoradaGUI {
     @FXML
     private TableColumn<Client, String> tcAvailabilityClient;
 
-    @FXML
-    private Button btnAddClient;
-
-    @FXML
-    private Button btnDeleteClient;
-
-    @FXML
-    private Button btnUpdateListClient;
-    
-    @FXML
-    private Button btnDisableClient;
-    
     //OrderList
     @FXML
     private TableView<Order> tvOrderList;
@@ -410,17 +265,6 @@ public class LaCasaDoradaGUI {
 
     @FXML
     private TableColumn<Order, String> tcObsOrder;
-
-    @FXML
-    private Button btnAddOrder;
-
-    @FXML
-    private Button btnDeleteOrder;
-
-    @FXML
-    private Button btnUpdateListO;
-
-
     
     private LaCasaDorada LaCD;
     private int clic;
@@ -434,10 +278,6 @@ public class LaCasaDoradaGUI {
 		arrayIng = new ArrayList<String>();
 		arraySize = new ArrayList<Size>();
 		arrayPrice = new ArrayList<Integer>();
-	}
-
-	public void initialize() {
-    	
 	}
 	
 	//LogIn Methods    
@@ -1067,7 +907,7 @@ public class LaCasaDoradaGUI {
     }
     
     @FXML
-    void disableUser(ActionEvent event) {
+    public void disableUser(ActionEvent event) {
     	if(tvUserList.getSelectionModel().getSelectedItem().getAvailability().equals(Availability.HABILITADO)) {
     		int on=1;
     		LaCD.changeDisableOrEnableU(tvUserList.getSelectionModel().getSelectedItem().getId(), on);
@@ -1197,7 +1037,7 @@ public class LaCasaDoradaGUI {
     }
     
     @FXML
-    void disableProd(ActionEvent event) {
+    public void disableProd(ActionEvent event) {
     	if(tvProductList.getSelectionModel().getSelectedItem().getAvailability().equals(Availability.HABILITADO)) {
     		int on=1;
     		LaCD.changeDisableOrEnablePro(tvProductList.getSelectionModel().getSelectedItem().getName(), on);

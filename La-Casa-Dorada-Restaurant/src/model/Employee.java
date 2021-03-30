@@ -11,13 +11,6 @@ public class Employee extends Object{
 		lastName = ln;
 		this.id = id;
 	}
-	
-//	public Employee(String n, String ln, String id, Availability avl) {
-//		name = n;
-//		lastName = ln;
-//		this.id = id;
-//		availability = avl;
-//	}
 
 	public String getLastName() {
 		return lastName;
