@@ -2,22 +2,21 @@ package model;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Date;
 
 public class Order implements Serializable{
 	private static final long serialVersionUID = 1;
 	
 	private String code; 
-	private ArrayList<Product> products;
+	private ArrayList<String> products;
 	private int quantityProducts;
-	private Client client;
-	private Employee employee;
-	private Date date;
+	private String client;
+	private String employee;
+	private String date;
 	private String observations;
 	
-	public Order(String code, ArrayList<Product> products, int quantityProducts, Client client, Employee employee, Date date, String observations) {
+	public Order(String code, ArrayList<String> products, int quantityProducts, String client, String employee, String date, String observations) {
 		this.code = code;
-		products = new ArrayList<Product>();
+		products = new ArrayList<String>();
 		this.quantityProducts = quantityProducts;
 		this.client = client;
 		this.employee = employee;
@@ -33,11 +32,11 @@ public class Order implements Serializable{
 		this.code = code;
 	}
 
-	public ArrayList<Product> getProducts() {
+	public ArrayList<String> getProducts() {
 		return products;
 	}
 
-	public void setProducts(ArrayList<Product> products) {
+	public void setProducts(ArrayList<String> products) {
 		this.products = products;
 	}
 
@@ -49,27 +48,27 @@ public class Order implements Serializable{
 		this.quantityProducts = quantityProducts;
 	}
 
-	public Client getClient() {
+	public String getClient() {
 		return client;
 	}
 
-	public void setClient(Client client) {
+	public void setClient(String client) {
 		this.client = client;
 	}
 
-	public Employee getEmployee() {
+	public String getEmployee() {
 		return employee;
 	}
 
-	public void setEmployee(Employee employee) {
+	public void setEmployee(String employee) {
 		this.employee = employee;
 	}
 
-	public Date getDate() {
+	public String getDate() {
 		return date;
 	}
 
-	public void setDate(Date date) {
+	public void setDate(String date) {
 		this.date = date;
 	}
 

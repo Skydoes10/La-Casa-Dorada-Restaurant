@@ -31,6 +31,7 @@ import model.Client;
 import model.Employee;
 import model.Ingredient;
 import model.LaCasaDorada;
+import model.Order;
 import model.Product;
 import model.ProductType;
 import model.Size;
@@ -384,6 +385,40 @@ public class LaCasaDoradaGUI {
     
     @FXML
     private Button btnDisableClient;
+    
+    //OrderList
+    @FXML
+    private TableView<Order> tvOrderList;
+
+    @FXML
+    private TableColumn<Order, String> tcCodeOrder;
+
+    @FXML
+    private TableColumn<Order, String> tcProductsOrder;
+
+    @FXML
+    private TableColumn<Order, String> tcQuantitiesOrder;
+
+    @FXML
+    private TableColumn<Order, String> tcClientOrder;
+
+    @FXML
+    private TableColumn<Order, String> tcEmployeeOrder;
+
+    @FXML
+    private TableColumn<Order, String> tcDateOrder;
+
+    @FXML
+    private TableColumn<Order, String> tcObsOrder;
+
+    @FXML
+    private Button btnAddOrder;
+
+    @FXML
+    private Button btnDeleteOrder;
+
+    @FXML
+    private Button btnUpdateListO;
 
 
     
@@ -445,7 +480,23 @@ public class LaCasaDoradaGUI {
     	Parent listPane = fxmlLoader.load();
     	
     	menuListPane.setCenter(listPane);
-    	//initializeClientTableView();
+    	initializeOrderTableView();
+    }
+    
+    public void initializeOrderTableView() {
+    	ObservableList<Order> observableList;
+    	observableList = FXCollections.observableArrayList(LaCD.getOrders());
+    	
+    	tvOrderList.setItems(observableList);
+    	tcCodeOrder.setCellValueFactory(new PropertyValueFactory<Order,String>("code"));
+    	tcProductsOrder.setCellValueFactory(new PropertyValueFactory<Order,String>("products"));
+    	tcQuantitiesOrder.setCellValueFactory(new PropertyValueFactory<Order,String>("quantityProducts"));
+    	tcClientOrder.setCellValueFactory(new PropertyValueFactory<Order,String>("client"));
+    	tcEmployeeOrder.setCellValueFactory(new PropertyValueFactory<Order,String>("employee"));   	
+    	tcDateOrder.setCellValueFactory(new PropertyValueFactory<Order,String>("date"));
+    	tcObsOrder.setCellValueFactory(new PropertyValueFactory<Order,String>("observations")); 
+    	
+    	tvOrderList.setEditable(true);
     }
     
     @FXML
@@ -1269,6 +1320,26 @@ public class LaCasaDoradaGUI {
     }
 
     //OrderList
-    
+    @FXML
+    public void addOtherOrder(ActionEvent event) throws IOException {
+    	FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("registerOrder.fxml"));
+    	fxmlLoader.setController(this);
+    	Parent RegisterPane = fxmlLoader.load();
+    	
+    	Stage stage = new Stage();
+        stage.setTitle("Añadir pedido");
+        stage.setScene(new Scene(RegisterPane));
+        stage.show();
+    }
+
+    @FXML
+    public void deleteOrder(ActionEvent event) {
+    	
+    }
+
+    @FXML
+    public void updateListO(ActionEvent event) {
+    	initializeOrderTableView();
+    }
     
 }

@@ -18,6 +18,7 @@ public class LaCasaDorada {
 		users = new ArrayList<User>();
 		employees = new ArrayList<Employee>();
 		pType = new ArrayList<ProductType>();
+		orders = new ArrayList<Order>();
 	}
 	
 	public void addUser(String name, String lastname, String id, String username, String password) {
@@ -48,6 +49,22 @@ public class LaCasaDorada {
 	public void addClient(String name, String ln, String a, String id, String p, String com) {
 		Client client = new Client(name, Availability.HABILITADO, ln, a, id, p, com);
 		clients.add(client);
+	}
+	
+	public void addOrder(String code, ArrayList<String> products, int quantityProducts, String client, String employee, String date, String observations) {
+		Order order = new Order(code, products, quantityProducts, client, employee, date, observations);
+		orders.add(order);
+	}
+	
+	public boolean deleteOrder(String code) {
+		boolean deleted = false;
+		for(int i=0; i<orders.size() && !deleted; i++) {
+			if(orders.get(i).getCode().equals(code)) {
+				orders.remove(i);
+				deleted = true;
+			}
+		}
+		return deleted;
 	}
 	
 	public boolean deleteClient(String id) {
@@ -142,7 +159,7 @@ public class LaCasaDorada {
 		boolean found = false;
 		for(int i=0; i<orders.size(); i++) {
 			for(int j=0; i<orders.get(i).getProducts().size() && !found; j++) {
-				if(orders.get(i).getProducts().get(j).getName().equals(name)) {
+				if(orders.get(i).getProducts().get(j).equals(name)) {
 					found = true;
 				}
 			}
@@ -163,7 +180,7 @@ public class LaCasaDorada {
 	public boolean searchClientInOrder(String id) {
 		boolean found = false;
 		for(int i=0; i<orders.size(); i++) {
-			if(orders.get(i).getClient().getId().equals(id)) {
+			if(orders.get(i).getClient().equals(id)) {
 				found = true;
 			}
 		}
