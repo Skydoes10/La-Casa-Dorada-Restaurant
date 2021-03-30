@@ -169,6 +169,80 @@ public class LaCasaDorada {
 		}
 		return found;
 	}
+	
+	public void changeDisableOrEnable(String name, int on) {
+		for(int i=0; i<ingredients.size(); i++) {
+			if(ingredients.get(i).getName().equals(name)) {
+				if(on==0) {
+					ingredients.get(i).setAvailability(Availability.HABILITADO);
+				}else if(on==1) {
+					ingredients.get(i).setAvailability(Availability.DESHABILITADO);
+				}
+			}
+		}
+	}
+	
+	public void changeDisableOrEnableU(String id, int on) {
+		for(int i=0; i<users.size(); i++) {
+			if(users.get(i).getName().equals(id)) {
+				if(on==0) {
+					users.get(i).setAvailability(Availability.HABILITADO);
+				}else if(on==1) {
+					users.get(i).setAvailability(Availability.DESHABILITADO);
+				}
+			}
+		}
+	}
+	
+	public void changeDisableOrEnablePT(String name, int on) {
+		for(int i=0; i<pType.size(); i++) {
+			if(pType.get(i).getName().equals(name)) {
+				if(on==0) {
+					pType.get(i).setAvailability(Availability.HABILITADO);
+				}else if(on==1) {
+					pType.get(i).setAvailability(Availability.DESHABILITADO);
+				}
+			}
+		}
+	}
+	
+	public void changeDisableOrEnablePro(String name, int on) {
+		for(int i=0; i<products.size(); i++) {
+			if(products.get(i).getName().equals(name)) {
+				if(on==0) {
+					products.get(i).setAvailability(Availability.HABILITADO);
+				}else if(on==1) {
+					products.get(i).setAvailability(Availability.DESHABILITADO);
+				}
+			}
+		}
+	}
+	
+	public void changeDisableOrEnableEmp(String id, int on) {
+		for(int i=0; i<employees.size(); i++) {
+			if(employees.get(i).getName().equals(id)) {
+				if(on==0) {
+					employees.get(i).setAvailability(Availability.HABILITADO);
+				}else if(on==1) {
+					employees.get(i).setAvailability(Availability.DESHABILITADO);
+				}
+			}
+		}
+	}
+	
+	public void changeDisableOrEnableCli(String id, int on) {
+		for(int i=0; i<clients.size(); i++) {
+			if(clients.get(i).getName().equals(id)) {
+				if(on==0) {
+					clients.get(i).setAvailability(Availability.HABILITADO);
+				}else if(on==1) {
+					clients.get(i).setAvailability(Availability.DESHABILITADO);
+				}
+			}
+		}
+	}
+	
+	
 
 	public ArrayList<User> getUsers() {
 		return users;

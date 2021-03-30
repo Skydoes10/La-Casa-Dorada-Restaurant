@@ -31,12 +31,17 @@
                         <Font size="13.0" />
                      </font>
                   </Button>
+                  <Button fx:id="btnDisable" layoutX="10.0" layoutY="48.0" mnemonicParsing="false" onAction="#disableIng" prefHeight="38.0" prefWidth="142.0" text="Deshabilitar">
+                     <font>
+                        <Font size="13.0" />
+                     </font>
+                  </Button>
                   <Button fx:id="btnUpdateListIng" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#updateListIng" prefHeight="38.0" prefWidth="142.0" text="Actualizar Lista" textFill="#0665c7">
                      <font>
                         <Font size="13.0" />
                      </font>
                      <VBox.margin>
-                        <Insets top="485.0" />
+                        <Insets top="450.0" />
                      </VBox.margin>
                   </Button>
                </children>

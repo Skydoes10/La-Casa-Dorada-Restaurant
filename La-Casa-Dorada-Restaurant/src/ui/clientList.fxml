@@ -36,12 +36,17 @@
                         <Font size="13.0" />
                      </font>
                   </Button>
+                  <Button fx:id="btnDisableClient" layoutX="10.0" layoutY="48.0" mnemonicParsing="false" onAction="#disableClient" prefHeight="38.0" prefWidth="142.0" text="Deshabilitar">
+                     <font>
+                        <Font size="13.0" />
+                     </font>
+                  </Button>
                   <Button fx:id="btnUpdateListClient" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#updateListClient" prefHeight="38.0" prefWidth="142.0" text="Actualizar Lista" textFill="#0665c7">
                      <font>
                         <Font size="13.0" />
                      </font>
                      <VBox.margin>
-                        <Insets top="485.0" />
+                        <Insets top="450.0" />
                      </VBox.margin>
                   </Button>
                </children>

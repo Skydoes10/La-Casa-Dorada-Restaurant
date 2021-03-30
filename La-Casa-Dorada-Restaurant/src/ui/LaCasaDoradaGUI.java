@@ -26,6 +26,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
+import model.Availability;
 import model.Client;
 import model.Employee;
 import model.Ingredient;
@@ -238,6 +239,9 @@ public class LaCasaDoradaGUI {
     @FXML
     private Button btnDeleteUser;
     
+    @FXML
+    private Button btnDisableU;
+    
     //EmployeeList
     @FXML
     private TableView<Employee> tvEmployeeList;
@@ -262,6 +266,9 @@ public class LaCasaDoradaGUI {
     
     @FXML
     private Button btnDeleteEmployee;
+    
+    @FXML
+    private Button btnDisableEmp;
 
     //IngredientList
     @FXML
@@ -278,6 +285,9 @@ public class LaCasaDoradaGUI {
 
     @FXML
     private Button btnDeleteIng;
+    
+    @FXML
+    private Button btnDisable;
 
     @FXML
     private Button btnUpdateListIng;
@@ -313,6 +323,9 @@ public class LaCasaDoradaGUI {
     @FXML
     private Button btnProdpdateList;
     
+    @FXML
+    private Button btnDisableProd;
+    
     //PTypeList
     @FXML
     private TableView<ProductType> tvPTypeList;
@@ -331,6 +344,9 @@ public class LaCasaDoradaGUI {
 
     @FXML
     private Button btnUpdatePTList;
+    
+    @FXML
+    private Button btnDisablePT;
     
     //ClientList
     @FXML
@@ -365,6 +381,9 @@ public class LaCasaDoradaGUI {
 
     @FXML
     private Button btnUpdateListClient;
+    
+    @FXML
+    private Button btnDisableClient;
 
 
     
@@ -420,7 +439,17 @@ public class LaCasaDoradaGUI {
     
     //Menu Methods
     @FXML
-    void loadClientList(ActionEvent event) throws IOException {
+    public void loadOrderList(ActionEvent event) throws IOException {
+    	FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("orderList.fxml"));
+    	fxmlLoader.setController(this);
+    	Parent listPane = fxmlLoader.load();
+    	
+    	menuListPane.setCenter(listPane);
+    	//initializeClientTableView();
+    }
+    
+    @FXML
+    public void loadClientList(ActionEvent event) throws IOException {
     	FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("clientList.fxml"));
     	fxmlLoader.setController(this);
     	Parent listPane = fxmlLoader.load();
@@ -945,6 +974,17 @@ public class LaCasaDoradaGUI {
     	}
     }
     
+    @FXML
+    public void disableEmp(ActionEvent event) {
+    	if(tvEmployeeList.getSelectionModel().getSelectedItem().getAvailability().equals(Availability.HABILITADO)) {
+    		int on=1;
+    		LaCD.changeDisableOrEnableEmp(tvEmployeeList.getSelectionModel().getSelectedItem().getId(), on);
+    	}else {
+    		int on=0;
+    		LaCD.changeDisableOrEnableEmp(tvEmployeeList.getSelectionModel().getSelectedItem().getId(), on);
+    	}
+    }
+    
     //userList Methods
     @FXML
     public void addOtherUser(ActionEvent event) throws IOException {
@@ -972,6 +1012,17 @@ public class LaCasaDoradaGUI {
         		alert1.setContentText("Usuario eliminado exitosamente");
         		alert1.showAndWait();
         	}
+    	}
+    }
+    
+    @FXML
+    void disableUser(ActionEvent event) {
+    	if(tvUserList.getSelectionModel().getSelectedItem().getAvailability().equals(Availability.HABILITADO)) {
+    		int on=1;
+    		LaCD.changeDisableOrEnableU(tvUserList.getSelectionModel().getSelectedItem().getId(), on);
+    	}else {
+    		int on=0;
+    		LaCD.changeDisableOrEnableU(tvUserList.getSelectionModel().getSelectedItem().getId(), on);
     	}
     }
     
@@ -1019,6 +1070,17 @@ public class LaCasaDoradaGUI {
         	}
     	}
     }
+    
+    @FXML
+    public void disableIng(ActionEvent event) {
+    	if(tvIngredientList.getSelectionModel().getSelectedItem().getAvailability().equals(Availability.HABILITADO)) {
+    		int on=1;
+    		LaCD.changeDisableOrEnable(tvIngredientList.getSelectionModel().getSelectedItem().getName(), on);
+    	}else {
+    		int on=0;
+    		LaCD.changeDisableOrEnable(tvIngredientList.getSelectionModel().getSelectedItem().getName(), on);
+    	}
+    }
 
     //ProductList Methods
     @FXML
@@ -1061,7 +1123,7 @@ public class LaCasaDoradaGUI {
     	if(LaCD.searchProductInOrder(tvProductList.getSelectionModel().getSelectedItem().getName())) {
     		Alert alert = new Alert(AlertType.ERROR);
 			alert.setTitle("El producto "+tvProductList.getSelectionModel().getSelectedItem().getName()+" no puede ser eliminado");
-			alert.setHeaderText("Hay por lo menos una orden que está asociada al producto");
+			alert.setHeaderText("Hay por lo menos un pedido que está asociada al producto");
 			alert.setContentText(null);
 			alert.showAndWait();
     	}else {
@@ -1080,6 +1142,17 @@ public class LaCasaDoradaGUI {
             		alert1.showAndWait();
             	}
         	}
+    	}
+    }
+    
+    @FXML
+    void disableProd(ActionEvent event) {
+    	if(tvProductList.getSelectionModel().getSelectedItem().getAvailability().equals(Availability.HABILITADO)) {
+    		int on=1;
+    		LaCD.changeDisableOrEnablePro(tvProductList.getSelectionModel().getSelectedItem().getName(), on);
+    	}else {
+    		int on=0;
+    		LaCD.changeDisableOrEnablePro(tvProductList.getSelectionModel().getSelectedItem().getName(), on);
     	}
     }
     
@@ -1128,6 +1201,17 @@ public class LaCasaDoradaGUI {
     	initializePTypeTableView();
     }
     
+    @FXML
+    public void disablePT(ActionEvent event) {
+    	if(tvPTypeList.getSelectionModel().getSelectedItem().getAvailability().equals(Availability.HABILITADO)) {
+    		int on=1;
+    		LaCD.changeDisableOrEnablePT(tvPTypeList.getSelectionModel().getSelectedItem().getName(), on);
+    	}else {
+    		int on=0;
+    		LaCD.changeDisableOrEnablePT(tvPTypeList.getSelectionModel().getSelectedItem().getName(), on);
+    	}
+    }
+    
     //ClientList
     @FXML
     public void addOtherClient(ActionEvent event) throws IOException {
@@ -1146,7 +1230,7 @@ public class LaCasaDoradaGUI {
     	if(LaCD.searchClientInOrder(tvClientList.getSelectionModel().getSelectedItem().getId())) {
     		Alert alert = new Alert(AlertType.ERROR);
 			alert.setTitle("El cliente "+tvClientList.getSelectionModel().getSelectedItem().getName()+" no puede ser eliminado");
-			alert.setHeaderText("Hay por lo menos una orden que está asociada él");
+			alert.setHeaderText("Hay por lo menos un pedido que está asociada él");
 			alert.setContentText(null);
 			alert.showAndWait();
     	}else {
@@ -1172,6 +1256,19 @@ public class LaCasaDoradaGUI {
     public void updateListClient(ActionEvent event) {
     	initializeClientTableView();
     }
+    
+    @FXML
+    public void disableClient(ActionEvent event) {
+    	if(tvClientList.getSelectionModel().getSelectedItem().getAvailability().equals(Availability.HABILITADO)) {
+    		int on=1;
+    		LaCD.changeDisableOrEnableCli(tvClientList.getSelectionModel().getSelectedItem().getId(), on);
+    	}else {
+    		int on=0;
+    		LaCD.changeDisableOrEnableCli(tvClientList.getSelectionModel().getSelectedItem().getId(), on);
+    	}
+    }
 
+    //OrderList
+    
     
 }
